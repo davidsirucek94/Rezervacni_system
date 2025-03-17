@@ -3,7 +3,7 @@ package Kino;
 public class Misto {
 
 	int number;
-	boolean isTaken = false;
+	private boolean isTaken = false;
 	
 	public Misto(int number) {
 		this.number = number;

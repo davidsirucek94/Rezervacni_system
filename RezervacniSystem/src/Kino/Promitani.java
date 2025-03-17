@@ -8,9 +8,16 @@ public class Promitani {
 	Sal sal;
 	LocalDateTime dateTime;
 	
-	public void isThisSeatTaken(int row, int seat) {
-		
-		sal.seats.get(row).get(seat);
+	public Promitani(Film film, Sal sal, LocalDateTime dateTime) {
+		this.film = film;
+		this.sal = sal;
+		this.dateTime = dateTime;
 	}
+	
+	public boolean isThisSeatTaken(int row, int seat) {
+		return sal.seats.get(row).get(seat).isSeatTaken();
+	}
+	
+	
 	
 }

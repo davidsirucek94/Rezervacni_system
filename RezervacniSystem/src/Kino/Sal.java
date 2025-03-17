@@ -33,7 +33,11 @@ public class Sal {
 			}
 		}
 	}
-
+	
+	public Misto getSeat(int row, int seat) {
+		return seats.get(row).get(seat);
+	}
+	
 	@Override
 	public String toString() {
 		String result = "";
@@ -41,7 +45,7 @@ public class Sal {
 			result = result + String.format("Row %d:", (i + 1));
 			for (int j = 0; j < seats.get(i).size(); j++) {
 				Misto currentSeat = seats.get(i).get(j);
-				result = result + String.format("[%s]", currentSeat.isTaken ? "❌" : String.valueOf(currentSeat.number));
+				result = result + String.format("[%s]", currentSeat.isSeatTaken() ? "❌" : String.valueOf(currentSeat.number));
 			}
 			result = result + "\n";
 		}
