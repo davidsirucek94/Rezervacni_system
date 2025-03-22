@@ -1,25 +1,35 @@
 package cinema;
-import java.util.UUID;
 import java.time.LocalDateTime;
 import java.util.Collections.Set;
 import java.util.Collections.HashSet;
 
 public class Show {
 
-	private String uuid;
 	private Movie movie;
-	private String roomUuid;
+	private Room room;
+	private LocalDateTime showTime;
 	
-	public Show(Movie movie, String roomUuid) {
+	public Show(Movie movie, Room room, LocalDateTime showTime) {
 		this.movie = movie;
-		this.roomUuid = roomUuid;
+		this.room = room;
+		this.showTime = showTime;
 	}
 
-	public void takeSeat(int row, int seatIndex) {
-
+	public getRoom() {
+		return room;
 	}
 
-    public String getUuid(){
-		return uuid;
- 	}
+	public String getMovieTitle() {
+		return movie.getTitle();
+	}
+
+	public boolean canBeReserved() {
+		return !room.isFull() && Duration.between(LocalDateTime.now(), showTime).toMinutes() > Constants.MINUTES_TO_CLOSE_RESERVATIONS;
+	}
+
+
+
+	public String getFormattedShowTime() {
+        return showTime.format(Constants.HOURS_MINUTES_FORMATTER);
+	}
 }

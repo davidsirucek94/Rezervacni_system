@@ -1,21 +1,24 @@
 package cinema;
-import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Reservation {
-private String uuid;
-	private String fullname;
-	private String showUuid;
+	private Show show;
+	private List<Seat> seats = null;
 
-	public Reservation(String fullname, String showUuid) {
-		this.fullname = fullname;
+	public Reservation(Show show) {
 		this.show = show;
+		this.seats = new ArrayList<>();
 	}
 
-public String getUuid(){
-	return uuid;
-}
-	
+
+	public void addSeat(Seat seat) {
+		seats.add(seat);
+	}
+
+	public void removeSeat() {
+		seats.remove(seat);
+	}
+
 }

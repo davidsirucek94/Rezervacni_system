@@ -2,16 +2,13 @@ package cinema;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Room {
-	private String uuid;
 	private int roomNumber;
 	private boolean isImax;
 	private boolean isVip;
 	private List<List<Seat>> rows;
 	
-	private Show currentShow = null;
 
 	public Room(int roomNumber, int numberOfRows, int numberOfSeatsInRow, boolean isImax, boolean isVip) {
 		this.roomNumber = roomNumber;
@@ -19,7 +16,7 @@ public class Room {
 		this.isVip = isVip;
 		rows = new ArrayList<>();
 
-		if(numberOfRows == 0 ||numberOfSeatsInRow) {
+		if(numberOfRows == 0 || numberOfSeatsInRow) {
 			throw new RuntimeException("Cannot create empty room.");
 		}
 
@@ -32,36 +29,49 @@ public class Room {
 	}
 
 
-	public void setShow(Show show) {
-		if(show == null) {
-			throw new RuntimeException("Cannot set show as null, if you want to cancell show use method 'cancelShow' instead.")
+	public void takeSeat(int row, int number) {
+		Seat seat = room.getSeat(row, number);
+
+		if(seat.getIsTaken()){
+			return false;
 		}
 
-		if (currentShow != null){
-			throw new RuntimeException("There is show already set.");
-		} 
-
-		currentShow = show;
+		seat.setTaken();
+		return true;
 	}
 
-	public void cancelShow() {
-		if(currentShow == null) {
-			throw new RuntimeException("No show has been set.");
+	public boolean getSeat(int row, int number) {
+		return rows.get(row).get(number);
+	}
+	
+	public int getCountOfFreeSeats() {
+		int count = 0;
+		for(int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+			for(int seatIndex = 0; seatIndex < rows.get(rowIndex).size(); seatIndex++) {
+				if(!rows.get(rowIndex).get(seatIndex).getIsTaken()) {
+					count++;
+				}
+			}
 		}
-
-		currentShow = null;
+		return count;
 	}
 
-public String getUuid(){
-	return uuid;
-}
-	
-	
-	public void render() {
-		System.out.println(this)
+	public boolean isFull() {
+		for(int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+			for(int seatIndex = 0; seatIndex < rows.get(rowIndex).size(); seatIndex++) {
+				if(!rows.get(rowIndex).get(seatIndex).getIsTaken()) {
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 
-	
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();

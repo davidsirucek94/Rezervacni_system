@@ -1,9 +1,7 @@
 package cinema;
-import java.util.UUID;
 
 public class Seat {
 
-	private String uuid;
 	private int number;
 	private boolean isTaken = false;
 	
@@ -11,21 +9,17 @@ public class Seat {
 		this.number = number;
 	}
 	
-	public void setSeatTaken() {
+	public void setTaken() {
 		isTaken = true;
 	}
 	
-	public void setSeatEmpty() {
+	public void setEmpty() {
 		isTaken = false;
 	}
 	
-	public boolean isSeatTaken() {
+	public boolean getIsTaken() {
 		return isTaken;
 	}
-	
-public String getUuid(){
-	return uuid;
-}
 
 	@Override
 	public String toString() {
