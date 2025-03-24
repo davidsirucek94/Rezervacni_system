@@ -15,7 +15,7 @@ public class Promitani {
 	}
 	
 	public boolean isThisSeatTaken(int row, int seat) {
-		return sal.seats.get(row).get(seat).isSeatTaken();
+		return sal.getSeat(row, seat).isSeatTaken();
 	}
 	
 	

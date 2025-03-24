@@ -2,12 +2,11 @@ package Kino;
 
 public class Misto {
 
-	int number;
+	private int number;
 	private boolean isTaken = false;
 	
 	public Misto(int number) {
 		this.number = number;
-		//this.isTaken = isTaken;
 	}
 	
 	public void setSeatTaken() {
@@ -24,7 +23,7 @@ public class Misto {
 	
 	@Override
 	public String toString() {
-		return String.format("Seat Number: %d\nIs the seat taken: %b", number, isTaken);
+		return String.format("[%s]", isSeatTaken() ? "❌" : String.valueOf(number));
 	} // když budu chtít textový výstup třídy
 	
 }
