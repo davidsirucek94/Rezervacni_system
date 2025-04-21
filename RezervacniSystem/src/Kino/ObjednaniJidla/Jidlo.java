@@ -1,4 +1,4 @@
-package Kino;
+package Kino.ObjednaniJidla;
 
 public class Jidlo {
 

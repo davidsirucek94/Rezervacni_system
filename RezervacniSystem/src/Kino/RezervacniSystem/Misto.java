@@ -1,4 +1,4 @@
-package Kino;
+package Kino.RezervacniSystem;
 
 public class Misto {
 
@@ -24,6 +24,6 @@ public class Misto {
 	@Override
 	public String toString() {
 		return String.format("[%s]", isSeatTaken() ? "❌" : String.valueOf(number));
-	} // když budu chtít textový výstup třídy
+	}
 	
 }

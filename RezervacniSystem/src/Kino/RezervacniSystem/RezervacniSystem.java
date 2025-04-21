@@ -1,4 +1,4 @@
-package Kino;
+package Kino.RezervacniSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,8 @@ public class RezervacniSystem {
 
 		int usersChoice = Integer.parseInt(scanner.nextLine());
 		Film chosenFilm = films.get(usersChoice);
+		
+		List<Promitani> promitani = new ArrayList<>();
 
 		Sal salOne = new Sal(1, 20, 30, false, false);
 		// Sal salTwo = new Sal(2, 25, 35, true, false);

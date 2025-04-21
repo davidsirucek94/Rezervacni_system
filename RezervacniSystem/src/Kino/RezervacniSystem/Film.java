@@ -1,4 +1,4 @@
-package Kino;
+package Kino.RezervacniSystem;
 
 public class Film {
 
@@ -11,26 +11,18 @@ public class Film {
 		this.genre = genre;
 		this.lengthInMin = lengthInMin;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public Genre getGenre() {
 		return genre;
 	}
-	
+
 	public int getLengthInMin() {
 		return lengthInMin;
 	}
-	
-	/*
-	public Film(String name, int lengthInMin) {
-		this.name = name;
-		this.genre = Genre.COMEDY;
-		this.lengthInMin = lengthInMin;
-	}
-	*/
 
 	@Override
 	public String toString() {

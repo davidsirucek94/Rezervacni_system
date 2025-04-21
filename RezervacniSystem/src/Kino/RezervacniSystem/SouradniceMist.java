@@ -1,4 +1,4 @@
-package Kino;
+package Kino.RezervacniSystem;
 
 public class SouradniceMist {
 

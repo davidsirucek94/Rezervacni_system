@@ -1,4 +1,4 @@
-package Kino;
+package Kino.RezervacniSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Rezervace {
 	}
 	
 	public void showCinemaRoom() {
-		System.out.println(promitani.sal.toString());
+	//	System.out.println(promitani.sal.toString());
 	}
 	
 	public void enterRowAndSeat() {
@@ -27,12 +27,12 @@ public class Rezervace {
 		String[] enteredData = scanner.nextLine().split(",");
 		int row = Integer.parseInt(enteredData[0]);
 		int seat = Integer.parseInt(enteredData[1]);
-		if(promitani.isThisSeatTaken(row, seat)) {
+		/*if(promitani.isThisSeatTaken(row, seat)) {
 			System.out.println("This seat is taken! Choose another one.");
 		} else {
 			rezervovanaMista.add(new SouradniceMist(row, seat));
 			promitani.sal.getSeat(row, seat).setSeatTaken();
-		}
+		}*/
 		scanner.close();
 	}
 	
