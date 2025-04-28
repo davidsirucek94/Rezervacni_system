@@ -5,11 +5,13 @@ public class Film {
 	private String name;
 	private Genre genre;
 	private int lengthInMin;
+	private double price;
 
-	public Film(String name, Genre genre, int lengthInMin) {
+	public Film(String name, Genre genre, int lengthInMin, double price) {
 		this.name = name;
 		this.genre = genre;
 		this.lengthInMin = lengthInMin;
+		this.price = price;
 	}
 
 	public String getName() {
@@ -22,6 +24,10 @@ public class Film {
 
 	public int getLengthInMin() {
 		return lengthInMin;
+	}
+	
+	public double getPrice() {
+		return price;
 	}
 
 	@Override

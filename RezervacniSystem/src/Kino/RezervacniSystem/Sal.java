@@ -2,17 +2,11 @@ package Kino.RezervacniSystem;
 
 public class Sal {
 
-	private int numberOfRoom;
-	private int numberOfRows;
-	private int numberOfSeats;
-	private boolean isImax;
-	private boolean isVip;
+	public final boolean isImax; //final to nastaví v konstruktoru a dále se to nebude měnit
+	public final boolean isVip;
 	private Misto[][] rows; // dvojrozměrné pole
 
 	public Sal(int numberOfRoom, int numberOfRows, int numberOfSeats, boolean isImax, boolean isVip) {
-		this.numberOfRoom = numberOfRoom;
-		this.numberOfRows = numberOfRows;
-		this.numberOfSeats = numberOfSeats;
 		this.isImax = isImax;
 		this.isVip = isVip;
 		rows = new Misto[numberOfRows][numberOfSeats];

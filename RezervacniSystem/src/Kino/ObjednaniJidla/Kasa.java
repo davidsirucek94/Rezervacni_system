@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Kino.Konstanty;
+
 public class Kasa {
 
 	private int numberOfKasa;
@@ -109,7 +111,7 @@ public class Kasa {
 		for (int i = 0; i < seznamObjednavek.size(); i++) {
 			Objednavka objednavka = seznamObjednavek.get(i);
 			System.out.printf("Number of Order: %d, Date and Time: %s, Cashier`s name: %s, Final price: %.2f \n",
-					objednavka.numberOfOrder, objednavka.dateTime.format(Konstanty.formatter),
+					objednavka.numberOfOrder, objednavka.dateTime.format(Konstanty.FORMATTER),
 					objednavka.cashier.getEmployeeName(), objednavka.finalPrice);
 		}
 	}
