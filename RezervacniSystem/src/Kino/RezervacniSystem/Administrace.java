@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Kino.Konstanty;
+import Kino.Storage;
+
 public class Administrace {
 
 	public static void main(String[] args) {
@@ -11,6 +14,10 @@ public class Administrace {
 		Scanner scanner = new Scanner(System.in);
 
 		List<Film> films = new ArrayList<>();
+		
+		// Vitek: Use this to load stored movies
+		// films.addAll(Storage.loadFilms(Konstanty.MOVIES_STORAGE_PATH));
+	
 		boolean enterNewMovie = false;
 		do {
 			System.out.println("Enter movie name: ");
@@ -35,6 +42,10 @@ public class Administrace {
 			enterNewMovie = choice.equals("yes");
 
 		} while (enterNewMovie == true);
+		
+		
+		// Vitek: Use this to store your movies
+		// Storage.save(Konstanty.MOVIES_STORAGE_PATH, films);
 
 		for (int i = 0; i < films.size(); i++) {
 			System.out.println(films.get(i));

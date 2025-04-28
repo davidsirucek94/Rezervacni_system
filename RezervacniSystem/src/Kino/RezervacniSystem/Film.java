@@ -1,6 +1,8 @@
 package Kino.RezervacniSystem;
 
-public class Film {
+import Kino.Storage.IStorable;
+
+public class Film implements IStorable{
 
 	private String name;
 	private Genre genre;
@@ -33,5 +35,10 @@ public class Film {
 	@Override
 	public String toString() {
 		return String.format("Film: %s, Genre: %s, Lenght: %d min", name, genre, lengthInMin);
+	}
+
+	@Override
+	public String toCsv() {
+		return name + ";" + genre + ";" + lengthInMin + ";" + price;
 	}
 }

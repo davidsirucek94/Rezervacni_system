@@ -12,6 +12,10 @@ public class Konstanty {
 	
 	public static final double IMAX_PLUS_VIP_EXTRA_COST_PERCENTAGE = 25;
 	
+	
+	// Storage
+	public static final String MOVIES_STORAGE_PATH = "./movies.csv";
+	
 	//static ta věc nepatří instanci, ale patří třídě
 	//konstanta má final, aby mi ji nikdo nezměnil
 }
