@@ -2,7 +2,9 @@ package Kino.ObjednaniJidla;
 
 import java.time.LocalDateTime;
 
-public class Objednavka {
+import Kino.Storage.IStorable;
+
+public class Objednavka implements IStorable{
 
 	final int numberOfOrder;
 	final LocalDateTime dateTime;
@@ -18,4 +20,13 @@ public class Objednavka {
 		this.finalPrice = finalPrice;
 	}
 
+	@Override
+	public String toString() {
+		return numberOfOrder + ";" + dateTime + ";" + cashier.getEmployeeName() + ";" + finalPrice;
+	}
+	
+	@Override
+	public String toCsv() {
+		return numberOfOrder + ";" + dateTime + ";" + cashier.getEmployeeName() + ";" + finalPrice;
+	}
 }

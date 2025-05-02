@@ -4,12 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Kino.Storage;
+
 public class ObjednaniJidla {
 
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
 
+		Employee employee1 = new Employee("Jan Příhoda", PracovniPozice.CASHIER);
+
+		Objednavka objednavka = new Objednavka(20, employee1, 200);
+		//Storage.save("./order.csv", objednavka);
+		var orders = Storage.loadOrders("./order.csv");
+		System.out.println(orders);
+		if(true) return;
 		List<Jidlo> seznamJidel = new ArrayList<>();
 		Jidlo popcorn = new Jidlo("Slaný popcorn", 200.50);
 		Jidlo nachos = new Jidlo("Nachos", 186.70);
@@ -30,7 +39,6 @@ public class ObjednaniJidla {
 		jidlaMenu.add(menu1);
 		jidlaMenu.add(menu2);
 
-		Employee employee1 = new Employee("Jan Příhoda", PracovniPozice.CASHIER);
 		Employee employee2 = new Employee("Valentina García Coronado", PracovniPozice.MANAGER);
 		Employee employee3 = new Employee("David Širůček", PracovniPozice.CLEANINGLADY);
 

@@ -11,14 +11,18 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import Kino.ObjednaniJidla.Employee;
+import Kino.ObjednaniJidla.Objednavka;
+import Kino.ObjednaniJidla.PracovniPozice;
 import Kino.RezervacniSystem.Film;
 import Kino.RezervacniSystem.Genre;
 
 public class Storage {
 
 	private static final Map<Class<?>, Function<String[], ?>> parsers = Map.of(Film.class,
-			row -> new Film(row[0], Genre.valueOf(row[1]), Integer.parseInt(row[2]), Double.parseDouble(row[3]))
-	);
+			row -> new Film(row[0], Genre.valueOf(row[1]), Integer.parseInt(row[2]), Double.parseDouble(row[3])),
+			Objednavka.class, row -> new Objednavka(Integer.parseInt(row[0]),
+					new Employee(row[2], PracovniPozice.CASHIER), Double.parseDouble(row[3])));
 
 	public interface IStorable {
 		public String toCsv();
@@ -57,15 +61,19 @@ public class Storage {
 	}
 
 	private static <T extends IStorable> List<T> load(String path, Class<T> klass) {
-		if(!new File(path).exists()) {
+		if (!new File(path).exists()) {
 			return List.of();
 		}
-		
+
 		return read(path).stream().map(row -> parseItem(row, klass)).collect(Collectors.toList());
 	}
 
 	public static List<Film> loadFilms(String path) {
 		return load(path, Film.class);
+	}
+	
+	public static List<Objednavka> loadOrders(String path) {
+		return load(path, Objednavka.class);
 	}
 
 }
