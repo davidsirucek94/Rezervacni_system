@@ -53,6 +53,52 @@ public class Administrace {
 
 		scanner.close();
 	}
+	
+	/* 
+	 * Programming is about trying not to repeat your self, so during the implementation of these functions try to make your work as easy as you can.
+	 * You don't have to push it hard, but when you are done, try to look at the implementation of each method and try to find
+	 * repetitive functionality and what are the variable parts that are changing
+	 * 
+	 * There shouldn't be problem to save things but it would be a bit worse to load them, you can try to modify the storage 
+	 * otherwise we can implement it together on our lesson.
+	 * 
+	 * To do saving and loading data more simple, create constants for your file paths inside Konstanty, it will make your code more clean and your paths will be defined at single place
+	 * */
+	
+	public static void addMovie() {
+		//TODO implement me 
+		// Function should walk user through creating a new Film and save it. 
+	}
+	
+	public static void addProjection() {
+		//TODO implement me
+		// Function should walk user through creating a new Promitani and save it.
+	}
+	
+	public static void addEmployee() {
+		//TODO implement me
+		// Function should walk user through creating a new Employee and save it.
+	}
+	
+	public static void addRoom() {
+		//TODO implement me
+		// Function should walk user through creating a new Sal and save it.
+	}
+	
+	public static void addMeal() {
+		//TODO implement me
+		// Function should walk user through creating a new Jidlo and save it.
+	}
+	
+	public static void addMealMenu() {
+		//TODO implement me
+		// Function should walk user through creating a new MenuJidlo and save it.
+	}
+	
+	// Add another if you can think of some
+	
+	
+	
 
 }
 
