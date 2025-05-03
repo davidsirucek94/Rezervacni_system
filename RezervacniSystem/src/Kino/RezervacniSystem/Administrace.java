@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import Kino.Konstanty;
+import Kino.LogInit;
 import Kino.Storage;
 
 public class Administrace {
+	static {
+		LogInit.init();
+	}
+
 
 	public static void main(String[] args) {
 

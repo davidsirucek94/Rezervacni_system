@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Kino.LogInit;
 import Kino.Storage;
 
 public class ObjednaniJidla {
+	
+static {
+	LogInit.init();
+}
 
 	public static void main(String[] args) {
+		
 
 		Scanner scanner = new Scanner(System.in);
 
