@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import Kino.Konstanty;
-import Kino.LogInit;
+import Kino.PrefixedPrintStream;
 import Kino.Storage;
 
 public class Administrace {
 	static {
-		LogInit.init();
+		PrefixedPrintStream.init();
 	}
 
 

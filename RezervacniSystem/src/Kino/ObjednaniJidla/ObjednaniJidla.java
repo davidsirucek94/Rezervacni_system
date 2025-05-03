@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Kino.LogInit;
+import Kino.PrefixedPrintStream;
 import Kino.Storage;
 
 public class ObjednaniJidla {
 	
 static {
-	LogInit.init();
+	PrefixedPrintStream.init();
 }
 
 	public static void main(String[] args) {

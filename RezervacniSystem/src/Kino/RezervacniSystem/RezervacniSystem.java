@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Kino.LogInit;
+import Kino.PrefixedPrintStream;
 
 public class RezervacniSystem {
 	
 	static {
-		LogInit.init();
+		PrefixedPrintStream.init();
 	}
 
 

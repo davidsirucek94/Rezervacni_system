@@ -5,15 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import Kino.Konstanty;
-import Kino.LogInit;
 
 public class Kasa {
-	
-	static {
-		LogInit.init();
-	}
-
-
 
 	private int numberOfKasa;
 	private Employee cashier;

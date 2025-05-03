@@ -3,7 +3,7 @@ package Kino;
 public class Kino {
 	
 	static {
-		LogInit.init();
+		PrefixedPrintStream.init();
 	}
 
 
