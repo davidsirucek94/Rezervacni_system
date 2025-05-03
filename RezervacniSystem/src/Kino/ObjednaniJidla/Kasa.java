@@ -9,6 +9,9 @@ import Kino.LogInit;
 
 public class Kasa {
 	
+	static {
+		LogInit.init();
+	}
 
 
 
