@@ -2,11 +2,13 @@ package Kino.RezervacniSystem;
 
 public class Sal {
 
+	public final int numberOfRoom;
 	public final boolean isImax; //final to nastaví v konstruktoru a dále se to nebude měnit
 	public final boolean isVip;
 	private Misto[][] rows; // dvojrozměrné pole
 
 	public Sal(int numberOfRoom, int numberOfRows, int numberOfSeats, boolean isImax, boolean isVip) {
+		this.numberOfRoom = numberOfRoom;
 		this.isImax = isImax;
 		this.isVip = isVip;
 		rows = new Misto[numberOfRows][numberOfSeats];
@@ -45,8 +47,7 @@ public class Sal {
 		return countEmpty;
 	}
 
-	@Override
-	public String toString() {
+	public String display() {
 		String result = "";
 		for (int i = 0; i < rows.length; i++) {
 			result = result + String.format("Row %d:", (i + 1));
@@ -57,5 +58,9 @@ public class Sal {
 		}
 		return result;
 	}
-	// pokračovat na třídě promítání a rezervace
+	
+	@Override
+	public String toString() {
+		return String.format("Room number: %d, Rows: %d, Seats: %d, Imax: %b, VIP: %b", numberOfRoom, rows.length, rows[0].length, isImax, isVip);
+	}
 }

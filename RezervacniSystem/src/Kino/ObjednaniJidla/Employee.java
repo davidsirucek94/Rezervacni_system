@@ -23,7 +23,12 @@ public class Employee {
 			return false;
 		}
 		return true;
-	
-	// return position != PracovniPozice.CLEANINGLADY;
+
+		// return position != PracovniPozice.CLEANINGLADY;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Employee`s name: %s, Employee`s position: %s", name, position);
 	}
 }

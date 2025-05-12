@@ -1,11 +1,6 @@
 package Kino;
 
 public class Kino {
-	
-	static {
-		PrefixedPrintStream.init();
-	}
-
 
 	public static void main(String[] args) {
 		/* Ask user what part of the system he wants to use

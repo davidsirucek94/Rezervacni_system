@@ -7,16 +7,17 @@ public class MenuJidlo {
 
 	String name;
 	double price;
+
+	List<Jidlo> menuItems = new ArrayList<>();
 	
-	List<Jidlo> menuChoices = new ArrayList<>();
-	
-	public MenuJidlo(String name, double price) {
+	public MenuJidlo(String name, double price, List<Jidlo> items) {
 		this.name = name;
 		this.price = price;
+		this.menuItems = items;
 	}
 	
 	public void addMeal(Jidlo jidlo) {
-		menuChoices.add(jidlo);
+		menuItems.add(jidlo);
 	}
 	
 	public String getNazev() {
@@ -25,6 +26,18 @@ public class MenuJidlo {
 	
 	public double getCena() {
 		return price;
+	}
+	
+	public void prettyPrint() {
+		System.out.printf("Menu name: %s\n", name);
+		System.out.println("---------------");
+		System.out.println("Menu contains:");
+		for (int i = 0; i < menuItems.size(); i++) {
+			System.out.println(menuItems.get(i).getNazev());
+		}
+		System.out.println("---------------");
+		System.out.printf("Price: %.2f Kč\n", price);
+
 	}
 	
 	@Override

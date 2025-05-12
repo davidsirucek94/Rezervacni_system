@@ -12,6 +12,7 @@ public class Konstanty {
 	
 	public static final double IMAX_PLUS_VIP_EXTRA_COST_PERCENTAGE = 25;
 	
+	public static final double NOT_SET_PRICE_VALUE = -1;
 	
 	// Storage
 	public static final String MOVIES_STORAGE_PATH = "./movies.csv";

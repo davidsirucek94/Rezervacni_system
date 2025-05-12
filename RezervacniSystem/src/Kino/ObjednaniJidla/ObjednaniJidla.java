@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Kino.PrefixedPrintStream;
 import Kino.Storage;
 
 public class ObjednaniJidla {
-	
-static {
-	PrefixedPrintStream.init();
-}
 
 	public static void main(String[] args) {
 		
@@ -33,11 +28,11 @@ static {
 		seznamJidel.add(nachos);
 		seznamJidel.add(hotdog);
 				
-		MenuJidlo menu1 = new MenuJidlo("Menu 1", 399.90);
+		MenuJidlo menu1 = new MenuJidlo("Menu 1", 399.90, List.of());
 		menu1.addMeal(hotdog);
 		menu1.addMeal(popcorn);
 		
-		MenuJidlo menu2 = new MenuJidlo("Menu 2", 499.90);
+		MenuJidlo menu2 = new MenuJidlo("Menu 2", 499.90, List.of());
 		menu2.addMeal(hotdog);
 		menu2.addMeal(nachos);
 		
