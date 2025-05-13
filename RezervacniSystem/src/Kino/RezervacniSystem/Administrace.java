@@ -16,7 +16,12 @@ import Kino.ObjednaniJidla.PracovniPozice;
 public class Administrace {
 
 	public static void main(String[] args) {
+
+		// TODO move me into correct package - Administrace is used for ObjednaniJidla and also for RezervacniSystem which are two different packages and 
+		// both of them are using this class so it shouldn't be included inside of any of these two packages but somewhere else in more global space
 		Scanner scanner = new Scanner(System.in);
+
+		// TODO: There are two large blocks that are really similar, try to identify them and try to create some reusable solution to simplify it.
 
 		addMealMenu(scanner);
 	}
@@ -39,7 +44,7 @@ public class Administrace {
 			} while (genreChoiceIndex >= genres.length || genreChoiceIndex < 0);
 			Genre chosenGenre = genres[genreChoiceIndex];
 			System.out.println("Enter movie length in min: ");
-			int movieLengthInMin = Integer.parseInt(scanner.nextLine().trim());
+			int movieLengthInMin = Integer.parseInt(scanner.nextLine().trim()); // Also could be validated for > 0
 			double moviePriceInCZK = getValidNumber(scanner, "Enter movie price in CZK. ");
 			films.add(new Film(movieName, chosenGenre, movieLengthInMin, moviePriceInCZK));
 			enterNewMovie = getAnotherChoice(scanner, "movie");
@@ -50,7 +55,7 @@ public class Administrace {
 			System.out.println(films.get(i));
 		}
 	}
-
+	
 	public static void addEmployee(Scanner scanner) {
 
 		List<Employee> employees = new ArrayList<>();
@@ -133,6 +138,11 @@ public class Administrace {
 		}
 	}
 
+	/**
+	 * This is the way how you can add comment to your method and it will show up, when you hover over it with your mouse
+	 * 
+	 * @param scanner - This is how you can describe your parameters
+	 */
 	public static List<Jidlo> getMeals(Scanner scanner) {
 
 		return getMeals(scanner, true); // přetížení metody addMeal
@@ -187,6 +197,7 @@ public class Administrace {
 		}
 
 	}
+	
 
 	public static void addProjection() {
 		// TODO implement me
