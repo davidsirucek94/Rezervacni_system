@@ -17,6 +17,14 @@ public class Kino {
 		 * so we store only it's ID instead
 		 * */
 	
+	/**
+	 * TODO: There are missing visibility modifiers inside some of your classes, please fix it
+	 * TODO: Try to make your classes savable where it makes sense  - do not implement saving just implement how  they will be saved
+	 * TODO: Search what is the UUID and then use class UUID to make your classes identificable by that - only in classes where it make sense
+	 * TODO: Think about how we could implement that Jidlo or MenuJidlo is in sale
+	 */
+
+
 	}
 
 }
