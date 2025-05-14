@@ -1,13 +1,16 @@
 package Kino.ObjednaniJidla;
 
-public class Employee {
+import java.util.UUID;
 
+public class Employee {
+	private UUID uuid; //TODO: Search what the UUID is and think about what we could use it for
 	private String name;
 	private PracovniPozice position;
 
 	public Employee(String name, PracovniPozice position) {
 		this.name = name;
 		this.position = position;
+		this.uuid = UUID.randomUUID();
 	}
 
 	public String getEmployeeName() {
