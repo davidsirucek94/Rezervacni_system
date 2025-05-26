@@ -17,18 +17,32 @@ public class Administrace {
 
 	public static void main(String[] args) {
 
+		Scanner scanner = new Scanner(System.in);
+		addEmployee(scanner);
+/*
+		System.out.println("Welcome to the administration system! What do you want do to?");
+		System.out.print("""
+				1 - Add a new movie.
+				2 - Add a new employee.
+				3 - Add a room.
+				4 - Add a new meal.
+				5 - Add a new meal menu.
+				""");
+		
+		*/
+		
 		// TODO move me into correct package - Administrace is used for ObjednaniJidla and also for RezervacniSystem which are two different packages and 
 		// both of them are using this class so it shouldn't be included inside of any of these two packages but somewhere else in more global space
-		Scanner scanner = new Scanner(System.in);
 
 		// TODO: There are two large blocks that are really similar, try to identify them and try to create some reusable solution to simplify it.
-
-		addMealMenu(scanner);
 	}
 
 	public static void addMovie(Scanner scanner) {
 
+		List<Film> savedFilms = Storage.loadFilms(Konstanty.MOVIES_STORAGE_PATH);
+
 		List<Film> films = new ArrayList<>();
+		films.addAll(savedFilms);
 
 		boolean enterNewMovie = false;
 		do {
@@ -54,11 +68,16 @@ public class Administrace {
 		for (int i = 0; i < films.size(); i++) {
 			System.out.println(films.get(i));
 		}
+		
+		Storage.save(Konstanty.MOVIES_STORAGE_PATH, films);
 	}
 	
 	public static void addEmployee(Scanner scanner) {
-
+		
+		List<Employee> savedEmployees = Storage.loadEmployees(Konstanty.EMPLOYEES_STORAGE_PATH);
+		
 		List<Employee> employees = new ArrayList<>();
+		employees.addAll(savedEmployees);
 
 		boolean enterNewEmployee = false;
 
@@ -83,11 +102,16 @@ public class Administrace {
 		for (int i = 0; i < employees.size(); i++) {
 			System.out.println(employees.get(i));
 		}
+		
+		Storage.save(Konstanty.EMPLOYEES_STORAGE_PATH, employees);
 	}
 
 	public static void addRoom(Scanner scanner, List<Sal> existingRooms) {
 
+		List<Sal> savedRooms = Storage.loadRooms(Konstanty.ROOMS_STORAGE_PATH);
+		
 		List<Sal> projectionRooms = new ArrayList<>();
+		projectionRooms.addAll(savedRooms);
 
 		boolean enterNewProjectionRoom = false;
 
@@ -136,6 +160,8 @@ public class Administrace {
 		for (int i = 0; i < projectionRooms.size(); i++) {
 			System.out.println(projectionRooms.get(i));
 		}
+		
+		Storage.save(Konstanty.ROOMS_STORAGE_PATH, projectionRooms);
 	}
 
 	/**
@@ -143,15 +169,18 @@ public class Administrace {
 	 * 
 	 * @param scanner - This is how you can describe your parameters
 	 */
-	public static List<Jidlo> getMeals(Scanner scanner) {
+	public static List<Jidlo> addMeal(Scanner scanner) {
 
-		return getMeals(scanner, true); // přetížení metody addMeal
+		return addMeal(scanner, true); // přetížení metody addMeal
 
 	}
 
-	public static List<Jidlo> getMeals(Scanner scanner, boolean askForPrice) {
+	public static List<Jidlo> addMeal(Scanner scanner, boolean askForPrice) {
 
+		List<Jidlo> savedMeals = Storage.loadMeals(Konstanty.MEALS_STORAGE_PATH);
+		
 		List<Jidlo> meals = new ArrayList<>();
+		meals.addAll(savedMeals);
 
 		boolean enterNewMeal = false;
 
@@ -170,6 +199,8 @@ public class Administrace {
 
 		} while (enterNewMeal == true);
 
+		Storage.save(Konstanty.MEALS_STORAGE_PATH, meals);
+		
 		return meals;
 	}
 
@@ -184,7 +215,7 @@ public class Administrace {
 
 			double menuPrice = getValidNumber(scanner, "Enter menu price: ");
 
-			List<Jidlo> meals = getMeals(scanner, false);
+			List<Jidlo> meals = addMeal(scanner, false);
 
 			MenuJidlo menu = new MenuJidlo(menuName, menuPrice, meals);
 			menus.add(menu);
@@ -265,5 +296,3 @@ public class Administrace {
 	}
 
 }
-
-//udělat metodu setUpFilms a tu metodu použít místo kódu v rezervačním systému

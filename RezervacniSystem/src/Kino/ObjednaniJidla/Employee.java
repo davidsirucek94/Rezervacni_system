@@ -1,13 +1,14 @@
 package Kino.ObjednaniJidla;
 
-public class Employee {
+import Kino.Storage.IStorable;
+
+public class Employee implements IStorable{
 	private String name;
 	private PracovniPozice position;
 
 	public Employee(String name, PracovniPozice position) {
 		this.name = name;
 		this.position = position;
-		this.uuid = UUID.randomUUID();
 	}
 
 	public String getEmployeeName() {
@@ -30,5 +31,10 @@ public class Employee {
 	@Override
 	public String toString() {
 		return String.format("Employee`s name: %s, Employee`s position: %s", name, position);
+	}
+	
+	@Override
+	public String toCsv() {
+		return name + ";" + position;
 	}
 }

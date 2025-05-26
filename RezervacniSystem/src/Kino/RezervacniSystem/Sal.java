@@ -1,27 +1,34 @@
 package Kino.RezervacniSystem;
 
-public class Sal {
+import Kino.Storage.IStorable;
+
+public class Sal implements IStorable {
 
 	public final int numberOfRoom;
 	public final boolean isImax; //final to nastaví v konstruktoru a dále se to nebude měnit
 	public final boolean isVip;
-	private Misto[][] rows; // dvojrozměrné pole
+	public final int numberOfRows;
+	public final int numberOfSeats;
+	
+	//private Misto[][] rows; // dvojrozměrné pole
 
 	public Sal(int numberOfRoom, int numberOfRows, int numberOfSeats, boolean isImax, boolean isVip) {
 		this.numberOfRoom = numberOfRoom;
 		this.isImax = isImax;
 		this.isVip = isVip;
-		rows = new Misto[numberOfRows][numberOfSeats];
+		this.numberOfRows = numberOfRows;
+		this.numberOfSeats = numberOfSeats;
+		//rows = new Misto[numberOfRows][numberOfSeats];
 
 		for (int rowNumber = 0; rowNumber < numberOfRows; rowNumber++) {
 
 			for (int seatNumber = 0; seatNumber < numberOfSeats; seatNumber++) {
 
-				rows[rowNumber][seatNumber] = new Misto(seatNumber + 1);
+		//		rows[rowNumber][seatNumber] = new Misto(seatNumber + 1);
 			}
 		}
 	}
-
+/*
 	public Misto getSeat(int row, int seat) {
 		return rows[row][seat];
 	}
@@ -62,5 +69,11 @@ public class Sal {
 	@Override
 	public String toString() {
 		return String.format("Room number: %d, Rows: %d, Seats: %d, Imax: %b, VIP: %b", numberOfRoom, rows.length, rows[0].length, isImax, isVip);
+	}
+	*/
+
+	@Override
+	public String toCsv() {
+		return numberOfRoom + ";" + numberOfRows + ";" + numberOfSeats + ";" + isImax + ";" + isVip;
 	}
 }

@@ -15,7 +15,13 @@ public class Konstanty {
 	public static final double NOT_SET_PRICE_VALUE = -1;
 	
 	// Storage
-	public static final String MOVIES_STORAGE_PATH = "./movies.csv";
+	public static final String MOVIES_STORAGE_PATH = "./Movies.csv";
+	
+	public static final String EMPLOYEES_STORAGE_PATH = "./Employees.csv";
+	
+	public static final String ROOMS_STORAGE_PATH = "./Rooms.csv";
+
+	public static final String MEALS_STORAGE_PATH = "./Meals.csv";
 	
 	//static ta věc nepatří instanci, ale patří třídě
 	//konstanta má final, aby mi ji nikdo nezměnil

@@ -1,8 +1,30 @@
 package Kino;
 
+import java.util.Scanner;
+import Kino.RezervacniSystem.Administrace;
+import Kino.ObjednaniJidla.ObjednaniJidla;
+
 public class Kino {
 
 	public static void main(String[] args) {
+		
+		String employeeFilePath = "Employees.csv";
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Do you want to access Administration (type 1), Reservation system (type 2) or Buffet (type 3).");
+		int choice = Integer.parseInt(scanner.nextLine());
+		switch (choice) {
+		case 1:
+			Administrace.main(args);
+			break;
+		case 2:
+			break;
+		case 3:
+			ObjednaniJidla.main();
+		}
+		
+		
+		scanner.close();
 		/* Ask user what part of the system he wants to use
 		   1. Administration
 		   2. Reservation system

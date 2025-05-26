@@ -8,10 +8,14 @@ import Kino.Storage;
 
 public class ObjednaniJidla {
 
-	public static void main(String[] args) {
+	public static void main() {
 		
 
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("Welcome to the meal booking system! What do you want do to?");
+		System.out.print("""
+				1 - Order a meal.
+				""");
 
 		Employee employee1 = new Employee("Jan Příhoda", PracovniPozice.CASHIER);
 
@@ -19,7 +23,6 @@ public class ObjednaniJidla {
 		//Storage.save("./order.csv", objednavka);
 		var orders = Storage.loadOrders("./order.csv");
 		System.out.println(orders);
-		if(true) return;
 		List<Jidlo> seznamJidel = new ArrayList<>();
 		Jidlo popcorn = new Jidlo("Slaný popcorn", 200.50);
 		Jidlo nachos = new Jidlo("Nachos", 186.70);
@@ -44,12 +47,9 @@ public class ObjednaniJidla {
 		Employee employee3 = new Employee("David Širůček", PracovniPozice.CLEANINGLADY);
 
 		Kasa kasa1 = new Kasa(1, scanner, seznamJidel, jidlaMenu);
-		Kasa kasa2 = new Kasa(2, scanner, seznamJidel, jidlaMenu);
-		Kasa kasa3 = new Kasa(3, scanner, seznamJidel, jidlaMenu);
 
 		kasa1.assignEmployee(employee1);
 
-		kasa1.getObjednavka();
 		kasa1.getObjednavka();
 
 		kasa1.printListOfOrders();

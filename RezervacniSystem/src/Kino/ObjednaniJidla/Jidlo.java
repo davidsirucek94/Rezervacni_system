@@ -1,8 +1,9 @@
 package Kino.ObjednaniJidla;
 
 import Kino.Konstanty;
+import Kino.Storage.IStorable;
 
-public class Jidlo {
+public class Jidlo implements IStorable {
 
 	private String nazev;
 	private double cena;
@@ -26,6 +27,11 @@ public class Jidlo {
 			return String.format("Name: %s", nazev);
 		}
 		return String.format("Name: %s, Price: %.2f Kč", nazev, cena);
+	}
+
+	@Override
+	public String toCsv() {
+		return nazev + ";" + cena;
 	}
 	
 }

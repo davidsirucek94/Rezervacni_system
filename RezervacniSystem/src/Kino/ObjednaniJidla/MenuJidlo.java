@@ -3,7 +3,9 @@ package Kino.ObjednaniJidla;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuJidlo {
+import Kino.Storage.IStorable;
+
+public class MenuJidlo implements IStorable{
 
 	String name;
 	double price;
@@ -43,6 +45,16 @@ public class MenuJidlo {
 	@Override
 	public String toString() {
 		return String.format("Name: %s, Price: %.2f Kč", name, price);
+	}
+
+	@Override
+	public String toCsv() {
+		String mealItems = "";
+		String data = name + ";" + price + ";";
+		for (Jidlo item : menuItems) {
+			mealItems = mealItems + item.toCsv() + "\n";
+		}
+		return data + mealItems;
 	}
 	
 }

@@ -17,18 +17,18 @@ public class Promitani {
 	}
 
 	public void bookSeat(int row, int seat) {
-		sal.bookSeat(row, seat);
-		boolean seatFree = sal.bookSeat(row, seat);
-		if (seatFree == false) {
+	//	sal.bookSeat(row, seat);
+	//	boolean seatFree = sal.bookSeat(row, seat);
+	//	if (seatFree == false) {
 			System.out.println("Your seat cannot be booked - already taken.");
-		} else {
+	//	} else {
 			System.out.println("Your seat has been booked.");
 		}
-	}
+	//}
 
-	public boolean areSeatsAvailable() {
-		return sal.getEmptySeatCount() > 0;
-	}
+	//public boolean areSeatsAvailable() {
+	//	return sal.getEmptySeatCount() > 0;
+	//}
 
 	public double getTotalPrice() {
 		double koeficient = 0;
