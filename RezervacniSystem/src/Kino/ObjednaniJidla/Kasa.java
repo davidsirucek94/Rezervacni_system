@@ -3,6 +3,7 @@ package Kino.ObjednaniJidla;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import Kino.Konstanty;
 
@@ -15,12 +16,14 @@ public class Kasa {
 	private List<MenuJidlo> jidlaMenu;
 	private int numberOfLastOrder = 0;
 	private List<Objednavka> seznamObjednavek = new ArrayList<>();
+	private UUID id;
 
 	public Kasa(int numberOfKasa, Scanner scanner, List<Jidlo> seznamJidel, List<MenuJidlo> jidlaMenu) {
 		this.numberOfKasa = numberOfKasa;
 		this.scanner = scanner;
 		this.seznamJidel = seznamJidel;
 		this.jidlaMenu = jidlaMenu;
+		id = UUID.randomUUID();
 	}
 
 	public void assignEmployee(Employee employee) {

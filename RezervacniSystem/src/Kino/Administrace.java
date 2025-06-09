@@ -1,4 +1,4 @@
-package Kino.RezervacniSystem;
+package Kino;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,35 +6,35 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import Kino.Konstanty;
-import Kino.Storage;
 import Kino.ObjednaniJidla.Employee;
 import Kino.ObjednaniJidla.Jidlo;
 import Kino.ObjednaniJidla.MenuJidlo;
 import Kino.ObjednaniJidla.PracovniPozice;
+import Kino.RezervacniSystem.Film;
+import Kino.RezervacniSystem.Genre;
+import Kino.RezervacniSystem.Sal;
 
 public class Administrace {
 
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
-		addEmployee(scanner);
-/*
-		System.out.println("Welcome to the administration system! What do you want do to?");
-		System.out.print("""
-				1 - Add a new movie.
-				2 - Add a new employee.
-				3 - Add a room.
-				4 - Add a new meal.
-				5 - Add a new meal menu.
-				""");
-		
-		*/
-		
-		// TODO move me into correct package - Administrace is used for ObjednaniJidla and also for RezervacniSystem which are two different packages and 
-		// both of them are using this class so it shouldn't be included inside of any of these two packages but somewhere else in more global space
+		addMealMenu(scanner);
+		/*
+		 * System.out.
+		 * println("Welcome to the administration system! What do you want do to?");
+		 * System.out.print(""" 1 - Add a new movie. 2 - Add a new employee. 3 - Add a
+		 * room. 4 - Add a new meal. 5 - Add a new meal menu. """);
+		 * 
+		 */
 
-		// TODO: There are two large blocks that are really similar, try to identify them and try to create some reusable solution to simplify it.
+		// TODO move me into correct package - Administrace is used for ObjednaniJidla
+		// and also for RezervacniSystem which are two different packages and
+		// both of them are using this class so it shouldn't be included inside of any
+		// of these two packages but somewhere else in more global space
+
+		// TODO: There are two large blocks that are really similar, try to identify
+		// them and try to create some reusable solution to simplify it.
 	}
 
 	public static void addMovie(Scanner scanner) {
@@ -46,7 +46,7 @@ public class Administrace {
 
 		boolean enterNewMovie = false;
 		do {
-			String movieName = getNotBlankString(scanner, "Enter movie name: ");
+			String movieName = UserInputMethods.getNotBlankString(scanner, "Enter movie name: ");
 			int genreChoiceIndex;
 			Genre[] genres = Genre.values();
 			do {
@@ -59,30 +59,30 @@ public class Administrace {
 			Genre chosenGenre = genres[genreChoiceIndex];
 			System.out.println("Enter movie length in min: ");
 			int movieLengthInMin = Integer.parseInt(scanner.nextLine().trim()); // Also could be validated for > 0
-			double moviePriceInCZK = getValidNumber(scanner, "Enter movie price in CZK. ");
+			double moviePriceInCZK = UserInputMethods.getValidNumber(scanner, "Enter movie price in CZK. ");
 			films.add(new Film(movieName, chosenGenre, movieLengthInMin, moviePriceInCZK));
-			enterNewMovie = getAnotherChoice(scanner, "movie");
+			enterNewMovie = UserInputMethods.getAnotherChoice(scanner, "movie");
 
 		} while (enterNewMovie == true);
 
 		for (int i = 0; i < films.size(); i++) {
 			System.out.println(films.get(i));
 		}
-		
+
 		Storage.save(Konstanty.MOVIES_STORAGE_PATH, films);
 	}
-	
+
 	public static void addEmployee(Scanner scanner) {
-		
+
 		List<Employee> savedEmployees = Storage.loadEmployees(Konstanty.EMPLOYEES_STORAGE_PATH);
-		
+
 		List<Employee> employees = new ArrayList<>();
 		employees.addAll(savedEmployees);
 
 		boolean enterNewEmployee = false;
 
 		do {
-			String employeeName = getNotBlankString(scanner, "Enter employee name: ");
+			String employeeName = UserInputMethods.getNotBlankString(scanner, "Enter employee name: ");
 			int workPositionChoiceIndex;
 			PracovniPozice[] workPosition = PracovniPozice.values();
 			do {
@@ -95,21 +95,21 @@ public class Administrace {
 			PracovniPozice chosenPosition = workPosition[workPositionChoiceIndex];
 			Employee employee = new Employee(employeeName, chosenPosition);
 			employees.add(employee);
-			enterNewEmployee = getAnotherChoice(scanner, "employee");
+			enterNewEmployee = UserInputMethods.getAnotherChoice(scanner, "employee");
 
 		} while (enterNewEmployee == true);
 
 		for (int i = 0; i < employees.size(); i++) {
 			System.out.println(employees.get(i));
 		}
-		
+
 		Storage.save(Konstanty.EMPLOYEES_STORAGE_PATH, employees);
 	}
 
 	public static void addRoom(Scanner scanner, List<Sal> existingRooms) {
 
 		List<Sal> savedRooms = Storage.loadRooms(Konstanty.ROOMS_STORAGE_PATH);
-		
+
 		List<Sal> projectionRooms = new ArrayList<>();
 		projectionRooms.addAll(savedRooms);
 
@@ -143,32 +143,27 @@ public class Administrace {
 
 			} while (validNumberOfRooms == false);
 
-			int numberOfRows = getNumberGreaterThanZero(scanner, "Enter number of rows: ");
+			int numberOfRows = UserInputMethods.getNumberGreaterThanZero(scanner, "Enter number of rows: ");
 
-			int numberOfSeats = getNumberGreaterThanZero(scanner, "Enter number of seats: ");
+			int numberOfSeats = UserInputMethods.getNumberGreaterThanZero(scanner, "Enter number of seats: ");
 
-			boolean isImax = getBooleanInput(scanner, "Is the room Imax?");
+			boolean isImax = UserInputMethods.getBooleanInput(scanner, "Is the room Imax?");
 
-			boolean isVIP = getBooleanInput(scanner, "Is the room VIP?");
+			boolean isVIP = UserInputMethods.getBooleanInput(scanner, "Is the room VIP?");
 
 			Sal sal = new Sal(numberOfRoom, numberOfRows, numberOfSeats, isImax, isVIP);
 			projectionRooms.add(sal);
-			enterNewProjectionRoom = getAnotherChoice(scanner, "room");
+			enterNewProjectionRoom = UserInputMethods.getAnotherChoice(scanner, "room");
 
 		} while (enterNewProjectionRoom == true);
 
 		for (int i = 0; i < projectionRooms.size(); i++) {
 			System.out.println(projectionRooms.get(i));
 		}
-		
+
 		Storage.save(Konstanty.ROOMS_STORAGE_PATH, projectionRooms);
 	}
 
-	/**
-	 * This is the way how you can add comment to your method and it will show up, when you hover over it with your mouse
-	 * 
-	 * @param scanner - This is how you can describe your parameters
-	 */
 	public static List<Jidlo> addMeal(Scanner scanner) {
 
 		return addMeal(scanner, true); // přetížení metody addMeal
@@ -178,121 +173,86 @@ public class Administrace {
 	public static List<Jidlo> addMeal(Scanner scanner, boolean askForPrice) {
 
 		List<Jidlo> savedMeals = Storage.loadMeals(Konstanty.MEALS_STORAGE_PATH);
-		
+
 		List<Jidlo> meals = new ArrayList<>();
 		meals.addAll(savedMeals);
 
 		boolean enterNewMeal = false;
+		boolean error = false;
+
+		Set<String> nazvyJidel = new HashSet<>();
+		for (Jidlo meal : meals) {
+			String nazevJidla = meal.getNazev();
+			nazvyJidel.add(nazevJidla);
+		}
 
 		do {
-			String mealName = getNotBlankString(scanner, "Enter meal name: ");
+			String mealName = UserInputMethods.getNotBlankString(scanner, "Enter meal name: ");
+
+			if (nazvyJidel.contains(mealName)) {
+				System.out.println("This meal already exists! Try again.");
+				error = true;
+				continue;
+			}
 
 			double mealPrice = Konstanty.NOT_SET_PRICE_VALUE;
 
 			if (askForPrice == true) {
-				mealPrice = getValidNumber(scanner, "Enter meal price: ");
+				mealPrice = UserInputMethods.getValidNumber(scanner, "Enter meal price: ");
 			}
 
 			Jidlo meal = new Jidlo(mealName, mealPrice);
 			meals.add(meal);
-			enterNewMeal = getAnotherChoice(scanner, "meal");
+			enterNewMeal = UserInputMethods.getAnotherChoice(scanner, "meal");
 
-		} while (enterNewMeal == true);
+		} while (enterNewMeal == true || error == true);
 
 		Storage.save(Konstanty.MEALS_STORAGE_PATH, meals);
-		
+
 		return meals;
 	}
 
 	public static void addMealMenu(Scanner scanner) {
 
+		List<Jidlo> savedMeals = Storage.loadMeals(Konstanty.MEALS_STORAGE_PATH);
 		List<MenuJidlo> menus = new ArrayList<>();
 
 		boolean enterNewMenu = false;
 
 		do {
-			String menuName = getNotBlankString(scanner, "Enter menu name: ");
+			List<Jidlo> chosenMeals = new ArrayList<>();
+			String menuName = UserInputMethods.getNotBlankString(scanner, "Enter the menu name:");
+			double menuPrice = UserInputMethods.getValidNumber(scanner, "Enter the menu price:");
 
-			double menuPrice = getValidNumber(scanner, "Enter menu price: ");
+			int cislo = 0;
+			for (Jidlo meal : savedMeals) {
+				System.out.println((cislo + 1) + ") " + meal.getNazev());
+				cislo++;
+			}
 
-			List<Jidlo> meals = addMeal(scanner, false);
+			System.out.println(
+					"Choose from the list of meals above. Enter the meal numbers and separate them by commas.");
 
-			MenuJidlo menu = new MenuJidlo(menuName, menuPrice, meals);
+			String usersInput = scanner.nextLine().trim();
+			String[] usersNumberChoices = usersInput.split(",");
+
+			for (int i = 0; i < usersNumberChoices.length; i++) {
+				int numberChoices = Integer.parseInt(usersNumberChoices[i].trim()) - 1;
+				chosenMeals.add(savedMeals.get(numberChoices));
+			}
+
+			MenuJidlo menu = new MenuJidlo(menuName, menuPrice, chosenMeals);
 			menus.add(menu);
-			enterNewMenu = getAnotherChoice(scanner, "menu");
 
+			enterNewMenu = UserInputMethods.getAnotherChoice(scanner, "menu");
+			menu.prettyPrint();
 		} while (enterNewMenu == true);
 
-		for (int i = 0; i < menus.size(); i++) {
-			menus.get(i).prettyPrint();
-		}
+		Storage.save(Konstanty.MEALMENUS_STORAGE_PATH, menus);
 
 	}
-	
 
 	public static void addProjection() {
-		// TODO implement me
-		// Function should walk user through creating a new Promitani and save it.
+		
 	}
-
-	public static int getNumberGreaterThanZero(Scanner scanner, String promptMessage) {
-		System.out.println(promptMessage);
-		boolean validNumber = true;
-		int number;
-		do {
-			number = Integer.parseInt(scanner.nextLine());
-			if (number <= 0) {
-				System.out.println("Wrong number of a rows. Please, enter it again: ");
-				validNumber = false;
-				continue;
-			} else {
-				validNumber = true;
-			}
-
-		} while (validNumber == false);
-		return number;
-	}
-
-	public static boolean getBooleanInput(Scanner scanner, String promptMessage) {
-		System.out.println(promptMessage + " Enter yes/no: ");
-		String question = scanner.nextLine().toLowerCase().trim();
-		return question.equals("yes");
-	}
-
-	public static String getNotBlankString(Scanner scanner, String promptMessage) {
-		String value;
-		do {
-			System.out.println(promptMessage);
-			value = scanner.nextLine();
-			if (value.isBlank()) {
-				System.out.println("You entered an empty String. Please enter it again.");
-			}
-		} while (value.isBlank());
-		return value;
-	}
-
-	public static double getValidNumber(Scanner scanner, String promptMessage) {
-		double value;
-		boolean isValid = true;
-		do {
-			System.out.println(promptMessage);
-			try {
-				value = Double.parseDouble(scanner.nextLine().replace(",", ".").trim());
-				isValid = true; // pokud je hodnota neplatná, na tento řádek ani nedojde (vyskočí výjimka)
-			} // zkus to udělat, a když padne výjimka, tak jdi do catch
-			catch (Exception E) {
-				System.out.println("You have entered an invalid number. Try again.");
-				value = -1;
-				isValid = false;
-			}
-		} while (isValid == false);
-		return value;
-	}
-
-	public static boolean getAnotherChoice(Scanner scanner, String objectName) {
-		System.out.printf("Do you wish to enter another %s? Enter Yes/No.\n", objectName);
-		String choice = scanner.nextLine().toLowerCase().trim();
-		return choice.equals("yes");
-	}
-
 }

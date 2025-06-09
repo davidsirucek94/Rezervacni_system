@@ -1,7 +1,7 @@
 package Kino;
 
 import java.util.Scanner;
-import Kino.RezervacniSystem.Administrace;
+
 import Kino.ObjednaniJidla.ObjednaniJidla;
 
 public class Kino {

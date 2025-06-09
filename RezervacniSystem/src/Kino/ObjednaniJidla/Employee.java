@@ -1,14 +1,18 @@
 package Kino.ObjednaniJidla;
 
+import java.util.UUID;
+
 import Kino.Storage.IStorable;
 
 public class Employee implements IStorable{
 	private String name;
 	private PracovniPozice position;
+	private UUID id;
 
 	public Employee(String name, PracovniPozice position) {
 		this.name = name;
 		this.position = position;
+		id = UUID.randomUUID();
 	}
 
 	public String getEmployeeName() {
@@ -27,6 +31,10 @@ public class Employee implements IStorable{
 
 		// return position != PracovniPozice.CLEANINGLADY;
 	}
+	
+	public static Employee fromCsv(String[] row) {
+		return new Employee(row[0], PracovniPozice.valueOf(row[1]));
+	}
 
 	@Override
 	public String toString() {
@@ -35,6 +43,11 @@ public class Employee implements IStorable{
 	
 	@Override
 	public String toCsv() {
-		return name + ";" + position;
+		return id + ";" + name + ";" + position;
+	}
+
+	@Override
+	public UUID getId() {
+		return id;
 	}
 }

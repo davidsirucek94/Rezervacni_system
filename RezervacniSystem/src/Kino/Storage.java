@@ -7,8 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -23,31 +25,9 @@ import Kino.ObjednaniJidla.MenuJidlo;
 
 public class Storage {
 
-	private static final Map<Class<?>, Function<String[], ?>> parsers = Map.of(Film.class,
-			row -> new Film(row[0], Genre.valueOf(row[1]), Integer.parseInt(row[2]), Double.parseDouble(row[3])),
-			Objednavka.class,
-			row -> new Objednavka(Integer.parseInt(row[0]), new Employee(row[2], PracovniPozice.CASHIER),
-					Double.parseDouble(row[3])),
-			Employee.class, row -> new Employee(row[0], PracovniPozice.valueOf(row[1])), 
-			Sal.class, row -> new Sal(Integer.parseInt(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]),
-					Boolean.parseBoolean(row[3]), Boolean.parseBoolean(row[4])),
-			Jidlo.class, row -> new Jidlo(row[0], Double.parseDouble(row[1])),
-			MenuJidlo.class, row -> {
-				String[] items = row[2].split("\n");
-				List<Jidlo> menuMeals = new ArrayList<>();
-				for (String item : items) {
-					String[] tmp = item.split(";");	
-					String nazev = tmp[0];
-					double cena = Double.parseDouble(tmp[1]);
-					menuMeals.add(new Jidlo(nazev, cena));
-				}
-				
-				return new MenuJidlo(row[0], Double.parseDouble(row[1]), menuMeals);
-			}
-			);
-
-	public interface IStorable {
+	public interface IStorable { //interface je záruka, že třída bude obsahovat ty konkrétní metody.
 		public String toCsv();
+		public UUID getId();
 	}
 
 	private static void write(String path, String content) {
@@ -69,11 +49,6 @@ public class Storage {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	private static <T extends IStorable> T parseItem(String[] row, Class<T> klass) {
-		return (T) parsers.get(klass).apply(row);
-	}
-
 	public static <T extends IStorable> void save(String path, T item) {
 		write(path, item.toCsv());
 	}
@@ -82,35 +57,40 @@ public class Storage {
 		write(path, items.stream().map(IStorable::toCsv).collect(Collectors.joining("\n")));
 	}
 
-	private static <T extends IStorable> List<T> load(String path, Class<T> klass) {
+	private static <T extends IStorable> List<T> load(String path, Function<String[], T> function) {
 		if (!new File(path).exists()) {
 			return List.of();
 		}
-
-		return read(path).stream().map(row -> parseItem(row, klass)).collect(Collectors.toList());
+		
+		return read(path).stream().map(row -> function.apply(row)).collect(Collectors.toList());
 	}
 
 	public static List<Film> loadFilms(String path) {
-		return load(path, Film.class);
+		return load(path, row -> Film.fromCsv(row));
 	}
 
 	public static List<Objednavka> loadOrders(String path) {
-		return load(path, Objednavka.class);
+		return load(path, row -> Objednavka.fromCsv(row));
 	}
 
 	public static List<Employee> loadEmployees(String path) {
-		return load(path, Employee.class);
+		return load(path, row -> Employee.fromCsv(row));
 	}
-	
+
 	public static List<Sal> loadRooms(String path) {
-		return load(path, Sal.class);
+		return load(path, row -> Sal.fromCsv(row));
 	}
-	
+
 	public static List<Jidlo> loadMeals(String path) {
-		return load(path, Jidlo.class);
+		return load(path, row -> Jidlo.fromCsv(row));
 	}
-	
-	public static List<MenuJidlo> loadMenus(String path) {
-		return load(path, MenuJidlo.class);
+
+	public static List<MenuJidlo> loadMenus(String path, String itemsPath) {
+		List<Jidlo> meals = loadMeals(itemsPath);
+		Map<UUID, Jidlo> mealsMap = new HashMap<>(); //na základě ID hledám hodnotu (u listu musím procházet celý list)
+		for (Jidlo meal : meals) {
+			mealsMap.put(meal.getId(), meal);
+		}
+		return load(path, row -> MenuJidlo.fromCsv(row, mealsMap));
 	}
 }
