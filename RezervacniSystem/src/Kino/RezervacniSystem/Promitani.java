@@ -16,31 +16,44 @@ public class Promitani {
 	private Sal sal;
 	private LocalDateTime dateTime;
 	private UUID id;
-	private Set<Sedadlo> bookedSeats;
+				// Seat, isSeatTaken ?
+	private Map<Sedadlo, Boolean> seats;
 
 	public Promitani(Film film, Sal sal, LocalDateTime dateTime) {
 		this.film = film;
 		this.sal = sal;
 		this.dateTime = dateTime;
-		bookedSeats = new HashSet<>();
+		seats = new HashMap<>();
 		id = UUID.randomUUID();
+	}
+
+	public void initializeSeats() {
+		// TODO implement me
+		// This method will be used to initialize our seats map with all seats that will
+		// be in the room of this projection, where all values will be set to false, because at the beginning all seats are free
+		// hint: use seats.put to add something into map under specific key... map.put("popcorn", 300)
 	}
 
 	public void bookSeat(int row, int seat) {
 
 		boolean choice = false;
-		
+		// TODO i changed seats from type Set to Map, make code bellow work again
+		// hint: Check what Map can do and remember it's key:value
 		do {
-		Sedadlo sedadlo1 = new Sedadlo(row, seat);
-		if (bookedSeats.contains(sedadlo1)) {
-			System.out.println("This seat is already booked.");
-			choice = true;
-		} else {
-			bookedSeats.add(sedadlo1);
-		}
-	
+			Sedadlo sedadlo1 = new Sedadlo(row, seat);
+			if (seats.contains(sedadlo1)) {
+				System.out.println("This seat is already booked.");
+				choice = true;
+			} else {
+				seats.add(sedadlo1);
+			}
+
 		} while (choice == true);
-		
+
+	}
+
+	public void showRoom() {
+		// TODO implement me
 	}
 
 	public double getTotalPrice() {

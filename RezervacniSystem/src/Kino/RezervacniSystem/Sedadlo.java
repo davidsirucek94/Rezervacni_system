@@ -1,5 +1,7 @@
 package Kino.RezervacniSystem;
 
+import java.util.Objects;
+
 public class Sedadlo {
 
 	int row;
@@ -18,4 +20,10 @@ public class Sedadlo {
 		return false;
 	}
 	
+	
+	// Method required to make object work properly in HashMaps and HashSets
+	@Override
+	public int hashCode() {
+	    return Objects.hash(row, seatNumber);
+	}
 }

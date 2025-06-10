@@ -10,7 +10,7 @@ public class RezervacniSystem {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		List<Film> films = new ArrayList<>(); //sem budu přiřazovat výsledek metody setUpFilms
+		List<Film> films = new ArrayList<>(); // sem budu přiřazovat výsledek metody setUpFilms
 		films.add(new Film("Avengers", Genre.SCIFI, 250, 300));
 		films.add(new Film("Event Horizon", Genre.HORROR, 180, 150));
 		films.add(new Film("Scary Movie", Genre.PARODY, 120, 200));
@@ -25,7 +25,7 @@ public class RezervacniSystem {
 
 		int usersChoice = Integer.parseInt(scanner.nextLine());
 		Film chosenFilm = films.get(usersChoice);
-		
+
 		List<Promitani> promitani = new ArrayList<>();
 
 		Sal salOne = new Sal(1, 20, 30, false, false);
@@ -35,6 +35,21 @@ public class RezervacniSystem {
 
 		Promitani promitaniOne = new Promitani(films.get(usersChoice), salOne, LocalDateTime.of(2025, 3, 17, 20, 00));
 		scanner.close();
+		
+		
+		
+		// TODO Make code bellow work
+
+		Promitani promitani = new Promitani(films.get(0), salOne, LocalDateTime.of(2025, 6, 10, 20, 0));
+
+		promitani.showRoom();
+		System.out.println();
+
+		System.out.println("Rezervace R3S5: " + (promitani.bookSeat(3, 5) ? "úspěšná" : "neúspěšná"));
+		System.out.println("Rezervace R3S5 znovu: " + (promitani.bookSeat(3, 5) ? "úspěšná" : "neúspěšná"));
+
+		System.out.println();
+		promitani.showRoom();
 
 	}
 }
