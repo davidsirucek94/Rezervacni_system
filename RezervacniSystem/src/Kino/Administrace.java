@@ -12,6 +12,7 @@ import Kino.ObjednaniJidla.MenuJidlo;
 import Kino.ObjednaniJidla.PracovniPozice;
 import Kino.RezervacniSystem.Film;
 import Kino.RezervacniSystem.Genre;
+import Kino.RezervacniSystem.Promitani;
 import Kino.RezervacniSystem.Sal;
 
 public class Administrace {
@@ -106,7 +107,7 @@ public class Administrace {
 		Storage.save(Konstanty.EMPLOYEES_STORAGE_PATH, employees);
 	}
 
-	public static void addRoom(Scanner scanner, List<Sal> existingRooms) {
+	public static void addRoom(Scanner scanner) {
 
 		List<Sal> savedRooms = Storage.loadRooms(Konstanty.ROOMS_STORAGE_PATH);
 
@@ -116,9 +117,6 @@ public class Administrace {
 		boolean enterNewProjectionRoom = false;
 
 		Set<Integer> numbersOfExistingRooms = new HashSet<>();
-		for (Sal room : existingRooms) {
-			numbersOfExistingRooms.add(room.numberOfRoom);
-		}
 
 		do {
 			System.out.println("Enter number of room: ");
@@ -156,10 +154,6 @@ public class Administrace {
 			enterNewProjectionRoom = UserInputMethods.getAnotherChoice(scanner, "room");
 
 		} while (enterNewProjectionRoom == true);
-
-		for (int i = 0; i < projectionRooms.size(); i++) {
-			System.out.println(projectionRooms.get(i));
-		}
 
 		Storage.save(Konstanty.ROOMS_STORAGE_PATH, projectionRooms);
 	}
@@ -253,6 +247,10 @@ public class Administrace {
 	}
 
 	public static void addProjection() {
+		List<Promitani> savedProjections = new ArrayList<>();
+		List<Promitani> projections = new ArrayList<>();
+		projections.addAll(savedProjections);
+
 		
 	}
 }

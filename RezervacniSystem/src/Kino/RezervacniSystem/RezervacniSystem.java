@@ -8,48 +8,11 @@ import java.util.Scanner;
 public class RezervacniSystem {
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-
-		List<Film> films = new ArrayList<>(); // sem budu přiřazovat výsledek metody setUpFilms
-		films.add(new Film("Avengers", Genre.SCIFI, 250, 300));
-		films.add(new Film("Event Horizon", Genre.HORROR, 180, 150));
-		films.add(new Film("Scary Movie", Genre.PARODY, 120, 200));
-		films.add(new Film("Liar Liar", Genre.COMEDY, 128, 220));
-		films.add(new Film("A Girl on a train", Genre.THRILLER, 90, 500));
-
-		System.out.println("Hello! Choose your movie. Type in the number of the movie: ");
-
-		for (int i = 0; i < films.size(); i++) {
-			System.out.printf("Choice %d: %s \n", i, films.get(i));
-		}
-
-		int usersChoice = Integer.parseInt(scanner.nextLine());
-		Film chosenFilm = films.get(usersChoice);
-
-		List<Promitani> promitani = new ArrayList<>();
-
-		Sal salOne = new Sal(1, 20, 30, false, false);
-		Sal salTwo = new Sal(2, 25, 35, true, false);
-		Sal salThree = new Sal(3, 10, 15, false, true);
-		Sal salFour = new Sal(4, 50, 80, true, true);
-
-		Promitani promitaniOne = new Promitani(films.get(usersChoice), salOne, LocalDateTime.of(2025, 3, 17, 20, 00));
-		scanner.close();
+		Scanner scanner = new Scanner(System.in);	
 		
 		
 		
-		// TODO Make code bellow work
-
-		Promitani promitani = new Promitani(films.get(0), salOne, LocalDateTime.of(2025, 6, 10, 20, 0));
-
-		promitani.showRoom();
-		System.out.println();
-
-		System.out.println("Rezervace R3S5: " + (promitani.bookSeat(3, 5) ? "úspěšná" : "neúspěšná"));
-		System.out.println("Rezervace R3S5 znovu: " + (promitani.bookSeat(3, 5) ? "úspěšná" : "neúspěšná"));
-
-		System.out.println();
-		promitani.showRoom();
+		
 
 	}
 }

@@ -3,7 +3,7 @@ package Kino.RezervacniSystem;
 import Kino.Storage.IStorable;
 import java.util.UUID;
 
-public class Film implements IStorable{
+public class Film implements IStorable {
 
 	private String name;
 	private Genre genre;
@@ -12,11 +12,15 @@ public class Film implements IStorable{
 	private UUID id;
 
 	public Film(String name, Genre genre, int lengthInMin, double price) {
+		this(UUID.randomUUID(), name, genre, lengthInMin, price);
+	} // tento this volá druhý konstruktor, aby mu předal parametry
+
+	public Film(UUID id, String name, Genre genre, int lengthInMin, double price) {
 		this.name = name;
 		this.genre = genre;
 		this.lengthInMin = lengthInMin;
 		this.price = price;
-		id = UUID.randomUUID();
+		this.id = id;
 	}
 
 	public String getName() {
@@ -30,13 +34,13 @@ public class Film implements IStorable{
 	public int getLengthInMin() {
 		return lengthInMin;
 	}
-	
+
 	public double getPrice() {
 		return price;
 	}
-	
+
 	public static Film fromCsv(String[] row) {
-		return new Film(row[0], Genre.valueOf(row[1]), Integer.parseInt(row[2]), Double.parseDouble(row[3]));
+		return new Film(UUID.fromString(row[0]), row[1], Genre.valueOf(row[2]), Integer.parseInt(row[3]), Double.parseDouble(row[4]));
 	}
 
 	@Override

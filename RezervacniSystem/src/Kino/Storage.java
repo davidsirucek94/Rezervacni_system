@@ -19,6 +19,7 @@ import Kino.ObjednaniJidla.Objednavka;
 import Kino.ObjednaniJidla.PracovniPozice;
 import Kino.RezervacniSystem.Film;
 import Kino.RezervacniSystem.Genre;
+import Kino.RezervacniSystem.Promitani;
 import Kino.RezervacniSystem.Sal;
 import Kino.ObjednaniJidla.Jidlo;
 import Kino.ObjednaniJidla.MenuJidlo;
@@ -92,5 +93,9 @@ public class Storage {
 			mealsMap.put(meal.getId(), meal);
 		}
 		return load(path, row -> MenuJidlo.fromCsv(row, mealsMap));
+	}
+	
+	public static List<Promitani> loadProjections(String path) {
+		return load(path, row -> Promitani.fromCsv(row));
 	}
 }

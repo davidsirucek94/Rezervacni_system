@@ -25,6 +25,8 @@ public class Konstanty {
 	
 	public static final String MEALMENUS_STORAGE_PATH = "./MealMenus.csv";
 	
+	public static final String PROJECTIONS_STORAGE_PATH = "./Projections.csv";
+	
 	//static ta věc nepatří instanci, ale patří třídě
 	//konstanta má final, aby mi ji nikdo nezměnil
 }

@@ -1,59 +1,78 @@
 package Kino.RezervacniSystem;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 import Kino.Konstanty;
+import Kino.Storage.IStorable;
 import Kino.ObjednaniJidla.Jidlo;
 
-public class Promitani {
+public class Promitani implements IStorable {
 
 	private Film film;
 	private Sal sal;
 	private LocalDateTime dateTime;
 	private UUID id;
-				// Seat, isSeatTaken ?
+	// Seat, isSeatTaken ?
 	private Map<Sedadlo, Boolean> seats;
 
 	public Promitani(Film film, Sal sal, LocalDateTime dateTime) {
+		this(UUID.randomUUID(), film, sal, dateTime);
+	}
+
+	
+	public Promitani(UUID id, Film film, Sal sal, LocalDateTime dateTime) {
 		this.film = film;
 		this.sal = sal;
 		this.dateTime = dateTime;
 		seats = new HashMap<>();
 		id = UUID.randomUUID();
+		initializeSeats();
 	}
 
 	public void initializeSeats() {
-		// TODO implement me
-		// This method will be used to initialize our seats map with all seats that will
-		// be in the room of this projection, where all values will be set to false, because at the beginning all seats are free
-		// hint: use seats.put to add something into map under specific key... map.put("popcorn", 300)
+
+		seats = new HashMap<>();
+
+		for (int r = 1; r <= sal.numberOfRows; r++) {
+			for (int s = 1; s <= sal.numberOfSeats; s++) {
+				seats.put(new Sedadlo(r, s), false);
+			}
+		}
 	}
 
-	public void bookSeat(int row, int seat) {
+	public boolean bookSeat(int row, int seat) {
 
-		boolean choice = false;
-		// TODO i changed seats from type Set to Map, make code bellow work again
-		// hint: Check what Map can do and remember it's key:value
-		do {
-			Sedadlo sedadlo1 = new Sedadlo(row, seat);
-			if (seats.contains(sedadlo1)) {
-				System.out.println("This seat is already booked.");
-				choice = true;
-			} else {
-				seats.add(sedadlo1);
-			}
-
-		} while (choice == true);
-
+		Sedadlo sedadlo = new Sedadlo(row, seat);
+		if (seats.get(sedadlo) == true) { // vrací true
+			System.out.println("This seat is already booked. Choose another one.");
+			return false;
+		} else {
+			seats.put(sedadlo, true);
+			System.out.println("Your seat has been successfully booked.");
+			return true;
+		}
 	}
 
 	public void showRoom() {
-		// TODO implement me
+
+		for (int r = 1; r <= sal.numberOfRows; r++) {
+			System.out.printf("%d: ", r);
+			for (int s = 1; s <= sal.numberOfSeats; s++) {
+				if (seats.get(new Sedadlo(r, s)) == true) {
+					System.out.printf("(X)");
+				} else {
+					System.out.printf("(%d)", s);
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	public double getTotalPrice() {
@@ -66,5 +85,23 @@ public class Promitani {
 			koeficient = Konstanty.IMAX_PLUS_VIP_EXTRA_COST_PERCENTAGE;
 		}
 		return film.getPrice() + film.getPrice() * (koeficient / 100);
+	}
+	
+	public static Promitani fromCsv(String[] row, Map<UUID, Film> mapaFilmu) {
+	//UUID id = UUID.fromString(mapaFilmu.get(row[1]));
+		UUID filmId = UUID.fromString(row[1]);
+		mapaFilmu.get(filmId);
+		
+		//return new Promitani(UUID.fromString(row[0]), film.(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]));
+	}
+	
+	@Override 
+	public String toCsv() {
+		return id + ";" + film.getId() + ";" + sal.getId() + ";" + dateTime + ";" + seats;
+	}
+	
+	@Override
+	public UUID getId() {
+		return id;
 	}
 }

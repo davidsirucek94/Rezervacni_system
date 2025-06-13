@@ -16,12 +16,17 @@ public class Sal implements IStorable {
 	// private Misto[][] rows; // dvojrozměrné pole
 
 	public Sal(int numberOfRoom, int numberOfRows, int numberOfSeats, boolean isImax, boolean isVip) {
+		this(UUID.randomUUID(), numberOfRoom, numberOfRows, numberOfSeats, isImax, isVip);
+	}
+
+	
+	public Sal(UUID id, int numberOfRoom, int numberOfRows, int numberOfSeats, boolean isImax, boolean isVip) {
 		this.numberOfRoom = numberOfRoom;
 		this.isImax = isImax;
 		this.isVip = isVip;
 		this.numberOfRows = numberOfRows;
 		this.numberOfSeats = numberOfSeats;
-		id = UUID.randomUUID();
+		this.id = id;
 		// rows = new Misto[numberOfRows][numberOfSeats];
 
 		for (int rowNumber = 0; rowNumber < numberOfRows; rowNumber++) {
@@ -54,11 +59,12 @@ public class Sal implements IStorable {
 	 */
 
 	public static Sal fromCsv(String[] row) {
-		return new Sal(Integer.parseInt(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]),
-				Boolean.parseBoolean(row[3]), Boolean.parseBoolean(row[4]));
+		return new Sal(UUID.fromString(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]), Integer.parseInt(row[3]),
+				Boolean.parseBoolean(row[4]), Boolean.parseBoolean(row[5]));
 	}
 
-	@Override public String toCsv() {
+	@Override 
+	public String toCsv() {
 		return id + ";" + numberOfRoom + ";" + numberOfRows + ";" + numberOfSeats + ";" + isImax + ";" + isVip;
 	}
 
