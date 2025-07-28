@@ -4,8 +4,10 @@ import java.time.format.DateTimeFormatter;
 
 public class Konstanty {
 
-	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyy HH:mm");
-	
+	public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm";
+
+	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+		
 	public static final double IMAX_EXTRA_COST_PERCENTAGE = 10;
 	
 	public static final double VIP_EXTRA_COST_PERCENTAGE = 15;

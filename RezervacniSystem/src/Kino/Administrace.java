@@ -1,5 +1,6 @@
 package Kino;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,14 +21,8 @@ public class Administrace {
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
-		addMealMenu(scanner);
-		/*
-		 * System.out.
-		 * println("Welcome to the administration system! What do you want do to?");
-		 * System.out.print(""" 1 - Add a new movie. 2 - Add a new employee. 3 - Add a
-		 * room. 4 - Add a new meal. 5 - Add a new meal menu. """);
-		 * 
-		 */
+
+		addProjection(scanner);
 
 		// TODO move me into correct package - Administrace is used for ObjednaniJidla
 		// and also for RezervacniSystem which are two different packages and
@@ -60,7 +55,7 @@ public class Administrace {
 			Genre chosenGenre = genres[genreChoiceIndex];
 			System.out.println("Enter movie length in min: ");
 			int movieLengthInMin = Integer.parseInt(scanner.nextLine().trim()); // Also could be validated for > 0
-			double moviePriceInCZK = UserInputMethods.getValidNumber(scanner, "Enter movie price in CZK. ");
+			double moviePriceInCZK = UserInputMethods.getValidDouble(scanner, "Enter movie price in CZK. ");
 			films.add(new Film(movieName, chosenGenre, movieLengthInMin, moviePriceInCZK));
 			enterNewMovie = UserInputMethods.getAnotherChoice(scanner, "movie");
 
@@ -192,7 +187,7 @@ public class Administrace {
 			double mealPrice = Konstanty.NOT_SET_PRICE_VALUE;
 
 			if (askForPrice == true) {
-				mealPrice = UserInputMethods.getValidNumber(scanner, "Enter meal price: ");
+				mealPrice = UserInputMethods.getValidDouble(scanner, "Enter meal price: ");
 			}
 
 			Jidlo meal = new Jidlo(mealName, mealPrice);
@@ -216,7 +211,7 @@ public class Administrace {
 		do {
 			List<Jidlo> chosenMeals = new ArrayList<>();
 			String menuName = UserInputMethods.getNotBlankString(scanner, "Enter the menu name:");
-			double menuPrice = UserInputMethods.getValidNumber(scanner, "Enter the menu price:");
+			double menuPrice = UserInputMethods.getValidDouble(scanner, "Enter the menu price:");
 
 			int cislo = 0;
 			for (Jidlo meal : savedMeals) {
@@ -246,11 +241,59 @@ public class Administrace {
 
 	}
 
-	public static void addProjection() {
-		List<Promitani> savedProjections = new ArrayList<>();
+	public static void addProjection(Scanner scanner) {
+		List<Promitani> savedProjections = Storage.loadProjections(Konstanty.PROJECTIONS_STORAGE_PATH,
+				Konstanty.MOVIES_STORAGE_PATH, Konstanty.ROOMS_STORAGE_PATH);
+		List<Film> savedFilms = Storage.loadFilms(Konstanty.MOVIES_STORAGE_PATH);
+		List<Sal> savedRooms = Storage.loadRooms(Konstanty.ROOMS_STORAGE_PATH);
 		List<Promitani> projections = new ArrayList<>();
 		projections.addAll(savedProjections);
 
-		
+		boolean enterNewProjection = false;
+
+		do {
+			int cisloFilmu = 0;
+
+			for (Film film : savedFilms) {
+				System.out.println((cisloFilmu + 1) + ") " + film.getName());
+				cisloFilmu++;
+			}
+
+			int movieChoice = UserInputMethods.getIntegerByChoice(scanner, "Choose a movie. Enter the movie number:",
+					savedFilms.size());
+
+			int cisloSalu = 0;
+
+			for (Sal sal : savedRooms) {
+				System.out.println((cisloSalu + 1) + ") " + sal.numberOfRoom);
+				cisloSalu++;
+			}
+
+			int roomChoice = UserInputMethods.getIntegerByChoice(scanner, "Choose a room. Enter the room number:",
+					savedRooms.size());
+
+			LocalDateTime dateTime = null;
+			do {
+				try {
+					String dateTimeString = UserInputMethods.getNotBlankString(scanner,
+							String.format("Enter date and time (%s)", Konstanty.DATE_TIME_FORMAT));
+					dateTime = LocalDateTime.parse(dateTimeString, Konstanty.FORMATTER);
+					if (dateTime.isBefore(LocalDateTime.now())) {
+						System.out.println("You have to enter an upcoming date and time! Try again.");
+						dateTime = null;
+						continue;
+					}
+				} catch (Exception e) {
+					System.out.println("You have entered a wrong date/time format. Try again.");
+				}
+			} while (dateTime == null);
+
+			projections.add(new Promitani(savedFilms.get(movieChoice), savedRooms.get(roomChoice), dateTime));
+
+			enterNewProjection = UserInputMethods.getAnotherChoice(scanner, "projection");
+
+		} while (enterNewProjection == true);
+
+		Storage.save(Konstanty.PROJECTIONS_STORAGE_PATH, projections);
 	}
 }

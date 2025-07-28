@@ -12,7 +12,7 @@ public class Jidlo implements IStorable {
 	private UUID id;
 
 	public Jidlo(String nazev, double cena) {
-		this(UUID.randomUUID(), nazev, cena);
+		this(UUID.randomUUID(), nazev, cena); //volá spodní konstruktor
 	}
 	
 	public Jidlo(UUID id, String nazev, double cena) {

@@ -11,7 +11,7 @@ public class UserInputMethods {
 		do {
 			number = Integer.parseInt(scanner.nextLine());
 			if (number <= 0) {
-				System.out.println("Wrong number of a rows. Please, enter it again: ");
+				System.out.println("You entered wrong number. Please, enter it again: ");
 				validNumber = false;
 				continue;
 			} else {
@@ -40,7 +40,7 @@ public class UserInputMethods {
 		return value;
 	}
 
-	public static double getValidNumber(Scanner scanner, String promptMessage) {
+	public static double getValidDouble(Scanner scanner, String promptMessage) {
 		double value;
 		boolean isValid = true;
 		do {
@@ -58,10 +58,28 @@ public class UserInputMethods {
 		return value;
 	}
 
+	public static int getIntegerByChoice(Scanner scanner, String promptMessage, int maxNumber) {
+		int value;
+		boolean isValid = true;
+		do {
+			value = UserInputMethods.getNumberGreaterThanZero(scanner, promptMessage);
+			if (value > maxNumber) {
+				System.out.println("You have entered an invalid number. Try again.");
+				value = -1;
+				isValid = false;
+				continue;
+			} else {
+				isValid = true;
+			}
+
+		} while (isValid == false);
+		return value - 1;
+	}
+
 	public static boolean getAnotherChoice(Scanner scanner, String objectName) {
 		System.out.printf("Do you wish to enter another %s? Enter Yes/No.\n", objectName);
 		String choice = scanner.nextLine().toLowerCase().trim();
 		return choice.equals("yes");
 	}
-	
+
 }

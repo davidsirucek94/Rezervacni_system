@@ -23,17 +23,17 @@ public class Promitani implements IStorable {
 	private Map<Sedadlo, Boolean> seats;
 
 	public Promitani(Film film, Sal sal, LocalDateTime dateTime) {
-		this(UUID.randomUUID(), film, sal, dateTime);
+		this(UUID.randomUUID(), film, sal, dateTime, new HashMap<>());
+		initializeSeats();
 	}
 
 	
-	public Promitani(UUID id, Film film, Sal sal, LocalDateTime dateTime) {
+	public Promitani(UUID id, Film film, Sal sal, LocalDateTime dateTime, Map<Sedadlo, Boolean> seats) {
 		this.film = film;
 		this.sal = sal;
 		this.dateTime = dateTime;
-		seats = new HashMap<>();
-		id = UUID.randomUUID();
-		initializeSeats();
+		this.id = id;;
+		this.seats = seats;
 	}
 
 	public void initializeSeats() {
@@ -87,17 +87,37 @@ public class Promitani implements IStorable {
 		return film.getPrice() + film.getPrice() * (koeficient / 100);
 	}
 	
-	public static Promitani fromCsv(String[] row, Map<UUID, Film> mapaFilmu) {
-	//UUID id = UUID.fromString(mapaFilmu.get(row[1]));
+	
+	public static Promitani fromCsv(String[] row, Map<UUID, Film> mapaFilmu, Map<UUID, Sal> mapaSalu) {
+		UUID promitaniId = UUID.fromString(row[0]);
 		UUID filmId = UUID.fromString(row[1]);
-		mapaFilmu.get(filmId);
+		Film film = mapaFilmu.get(filmId);
+		UUID salId = UUID.fromString(row[2]);
+		Sal sal = mapaSalu.get(salId);
+		LocalDateTime dateTime = LocalDateTime.parse(row[3]);
+		String[] sedadla = row[4].split("x");
+		Map<Sedadlo, Boolean> seats = new HashMap<>();
+				
+		for (String sedadlo : sedadla) {
+			String[] info = sedadlo.split("y");
+			int rada = Integer.parseInt(info[0]);
+			int cisloSedadla = Integer.parseInt(info[1]);
+			boolean obsazeno = Boolean.parseBoolean(info[2]);
+			seats.put(new Sedadlo(rada, cisloSedadla), obsazeno);
+		}
 		
-		//return new Promitani(UUID.fromString(row[0]), film.(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]));
+		return new Promitani(promitaniId, film, sal, dateTime, seats);
 	}
 	
 	@Override 
 	public String toCsv() {
-		return id + ";" + film.getId() + ";" + sal.getId() + ";" + dateTime + ";" + seats;
+		String sedadlaFormat = "";
+		for (Map.Entry<Sedadlo, Boolean> entry : seats.entrySet()) {
+			Sedadlo seat = entry.getKey();
+			Boolean obsazeno = entry.getValue();
+			sedadlaFormat = sedadlaFormat + String.format("%dy%dy%bx", seat.row, seat.seatNumber, obsazeno);
+		}
+		return id + ";" + film.getId() + ";" + sal.getId() + ";" + dateTime + ";" + sedadlaFormat;
 	}
 	
 	@Override

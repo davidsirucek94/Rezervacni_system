@@ -95,7 +95,19 @@ public class Storage {
 		return load(path, row -> MenuJidlo.fromCsv(row, mealsMap));
 	}
 	
-	public static List<Promitani> loadProjections(String path) {
-		return load(path, row -> Promitani.fromCsv(row));
+	public static List<Promitani> loadProjections(String path, String filmsPath, String salyPath) {
+		List<Film> films = loadFilms(filmsPath);
+		Map<UUID, Film> filmsMap = new HashMap<>();
+		for (Film film : films) {
+			filmsMap.put(film.getId(), film);
+		}
+		List<Sal> saly = loadRooms(salyPath);
+		Map<UUID, Sal> salyMap = new HashMap<>();
+		for (Sal sal : saly) {
+			salyMap.put(sal.getId(), sal);
+		}
+
+		return load(path, row -> Promitani.fromCsv(row, filmsMap, salyMap));
 	}
+	
 }
