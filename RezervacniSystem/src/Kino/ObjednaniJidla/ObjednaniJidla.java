@@ -8,8 +8,7 @@ import Kino.Storage;
 
 public class ObjednaniJidla {
 
-	public static void main() {
-		
+	public static void main() {	
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Welcome to the meal booking system! What do you want do to?");

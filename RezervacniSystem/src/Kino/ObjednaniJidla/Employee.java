@@ -10,9 +10,13 @@ public class Employee implements IStorable{
 	private UUID id;
 
 	public Employee(String name, PracovniPozice position) {
+		this(UUID.randomUUID(), name, position);
+	}
+	
+	public Employee(UUID id, String name, PracovniPozice position) {
 		this.name = name;
 		this.position = position;
-		id = UUID.randomUUID();
+		this.id = id;
 	}
 
 	public String getEmployeeName() {
@@ -33,7 +37,7 @@ public class Employee implements IStorable{
 	}
 	
 	public static Employee fromCsv(String[] row) {
-		return new Employee(row[0], PracovniPozice.valueOf(row[1]));
+		return new Employee(UUID.fromString(row[0]), row[1], PracovniPozice.valueOf(row[2]));
 	}
 
 	@Override

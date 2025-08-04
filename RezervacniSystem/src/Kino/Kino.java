@@ -3,6 +3,7 @@ package Kino;
 import java.util.Scanner;
 
 import Kino.ObjednaniJidla.ObjednaniJidla;
+import Kino.RezervacniSystem.RezervacniSystem;
 
 public class Kino {
 
@@ -11,18 +12,17 @@ public class Kino {
 		String employeeFilePath = "Employees.csv";
 		
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Do you want to access Administration (type 1), Reservation system (type 2) or Buffet (type 3).");
-		int choice = Integer.parseInt(scanner.nextLine());
+		int choice = UserInputMethods.getIntegerByChoice(scanner, "Do you want to access Administration (type 1), Reservation system (type 2) or Buffet (type 3).", 3);
 		switch (choice) {
 		case 1:
-			Administrace.main(args);
+			Administrace.main();
 			break;
 		case 2:
+			RezervacniSystem.main(args);
 			break;
 		case 3:
 			ObjednaniJidla.main();
 		}
-		
 		
 		scanner.close();
 		/* Ask user what part of the system he wants to use

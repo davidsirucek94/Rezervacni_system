@@ -66,48 +66,48 @@ public class Storage {
 		return read(path).stream().map(row -> function.apply(row)).collect(Collectors.toList());
 	}
 
-	public static List<Film> loadFilms(String path) {
-		return load(path, row -> Film.fromCsv(row));
+	public static List<Film> loadFilms() {
+		return load(Konstanty.MOVIES_STORAGE_PATH, row -> Film.fromCsv(row));
 	}
 
 	public static List<Objednavka> loadOrders(String path) {
 		return load(path, row -> Objednavka.fromCsv(row));
 	}
 
-	public static List<Employee> loadEmployees(String path) {
-		return load(path, row -> Employee.fromCsv(row));
+	public static List<Employee> loadEmployees() {
+		return load(Konstanty.EMPLOYEES_STORAGE_PATH, row -> Employee.fromCsv(row));
 	}
 
-	public static List<Sal> loadRooms(String path) {
-		return load(path, row -> Sal.fromCsv(row));
+	public static List<Sal> loadRooms() {
+		return load(Konstanty.ROOMS_STORAGE_PATH, row -> Sal.fromCsv(row));
 	}
 
-	public static List<Jidlo> loadMeals(String path) {
-		return load(path, row -> Jidlo.fromCsv(row));
+	public static List<Jidlo> loadMeals() {
+		return load(Konstanty.MEALS_STORAGE_PATH, row -> Jidlo.fromCsv(row));
 	}
 
-	public static List<MenuJidlo> loadMenus(String path, String itemsPath) {
-		List<Jidlo> meals = loadMeals(itemsPath);
+	public static List<MenuJidlo> loadMenus() {
+		List<Jidlo> meals = loadMeals();
 		Map<UUID, Jidlo> mealsMap = new HashMap<>(); //na základě ID hledám hodnotu (u listu musím procházet celý list)
 		for (Jidlo meal : meals) {
 			mealsMap.put(meal.getId(), meal);
 		}
-		return load(path, row -> MenuJidlo.fromCsv(row, mealsMap));
+		return load(Konstanty.MEALMENUS_STORAGE_PATH, row -> MenuJidlo.fromCsv(row, mealsMap));
 	}
 	
-	public static List<Promitani> loadProjections(String path, String filmsPath, String salyPath) {
-		List<Film> films = loadFilms(filmsPath);
+	public static List<Promitani> loadProjections() {
+		List<Film> films = loadFilms();
 		Map<UUID, Film> filmsMap = new HashMap<>();
 		for (Film film : films) {
 			filmsMap.put(film.getId(), film);
 		}
-		List<Sal> saly = loadRooms(salyPath);
+		List<Sal> saly = loadRooms();
 		Map<UUID, Sal> salyMap = new HashMap<>();
 		for (Sal sal : saly) {
 			salyMap.put(sal.getId(), sal);
 		}
 
-		return load(path, row -> Promitani.fromCsv(row, filmsMap, salyMap));
+		return load(Konstanty.PROJECTIONS_STORAGE_PATH, row -> Promitani.fromCsv(row, filmsMap, salyMap));
 	}
 	
 }

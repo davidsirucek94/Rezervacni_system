@@ -35,7 +35,15 @@ public class Promitani implements IStorable {
 		this.id = id;;
 		this.seats = seats;
 	}
-
+	
+	public LocalDateTime getProjectionDateTime() {
+		return dateTime;
+	}
+	
+	public Film getFilm() {
+		return film;
+	}
+	
 	public void initializeSeats() {
 
 		seats = new HashMap<>();

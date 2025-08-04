@@ -18,24 +18,17 @@ import Kino.RezervacniSystem.Sal;
 
 public class Administrace {
 
-	public static void main(String[] args) {
+	public static void main() {
 
 		Scanner scanner = new Scanner(System.in);
 
-		addProjection(scanner);
+		addEmployee(scanner);
 
-		// TODO move me into correct package - Administrace is used for ObjednaniJidla
-		// and also for RezervacniSystem which are two different packages and
-		// both of them are using this class so it shouldn't be included inside of any
-		// of these two packages but somewhere else in more global space
-
-		// TODO: There are two large blocks that are really similar, try to identify
-		// them and try to create some reusable solution to simplify it.
 	}
 
 	public static void addMovie(Scanner scanner) {
 
-		List<Film> savedFilms = Storage.loadFilms(Konstanty.MOVIES_STORAGE_PATH);
+		List<Film> savedFilms = Storage.loadFilms();
 
 		List<Film> films = new ArrayList<>();
 		films.addAll(savedFilms);
@@ -43,15 +36,19 @@ public class Administrace {
 		boolean enterNewMovie = false;
 		do {
 			String movieName = UserInputMethods.getNotBlankString(scanner, "Enter movie name: ");
-			int genreChoiceIndex;
 			Genre[] genres = Genre.values();
-			do {
-				System.out.println("Choose movie genre. Type in the choice number: ");
-				for (int i = 0; i < Genre.values().length; i++) {
-					System.out.printf("Choice %d: %s\n", i + 1, genres[i]);
-				}
-				genreChoiceIndex = Integer.parseInt(scanner.nextLine()) - 1;
-			} while (genreChoiceIndex >= genres.length || genreChoiceIndex < 0);
+			for (int i = 0; i < Genre.values().length; i++) {
+				System.out.printf("Choice %d: %s\n", i + 1, genres[i]);
+			}
+			int genreChoiceIndex = UserInputMethods.getIntegerByChoice(scanner,
+					"Choose movie genre. Type in the choice number: ", genres.length);
+			/*
+			 * do { System.out.println("Choose movie genre. Type in the choice number: ");
+			 * for (int i = 0; i < Genre.values().length; i++) {
+			 * System.out.printf("Choice %d: %s\n", i + 1, genres[i]); } genreChoiceIndex =
+			 * Integer.parseInt(scanner.nextLine()) - 1; } while (genreChoiceIndex >=
+			 * genres.length || genreChoiceIndex < 0);
+			 */
 			Genre chosenGenre = genres[genreChoiceIndex];
 			System.out.println("Enter movie length in min: ");
 			int movieLengthInMin = Integer.parseInt(scanner.nextLine().trim()); // Also could be validated for > 0
@@ -70,7 +67,7 @@ public class Administrace {
 
 	public static void addEmployee(Scanner scanner) {
 
-		List<Employee> savedEmployees = Storage.loadEmployees(Konstanty.EMPLOYEES_STORAGE_PATH);
+		List<Employee> savedEmployees = Storage.loadEmployees();
 
 		List<Employee> employees = new ArrayList<>();
 		employees.addAll(savedEmployees);
@@ -79,8 +76,12 @@ public class Administrace {
 
 		do {
 			String employeeName = UserInputMethods.getNotBlankString(scanner, "Enter employee name: ");
-			int workPositionChoiceIndex;
 			PracovniPozice[] workPosition = PracovniPozice.values();
+			for (int i = 0; i < PracovniPozice.values().length; i++) {
+				System.out.printf("Choice %d: %s\n", i + 1, workPosition[i]);
+			}
+			int workPositionChoiceIndex = UserInputMethods.getIntegerByChoice(scanner, "Choose employee`s position. Type in the choice number: ", workPosition.length);
+			/*
 			do {
 				System.out.println("Choose employee`s position. Type in the choice number: ");
 				for (int i = 0; i < PracovniPozice.values().length; i++) {
@@ -88,6 +89,7 @@ public class Administrace {
 				}
 				workPositionChoiceIndex = Integer.parseInt(scanner.nextLine()) - 1;
 			} while (workPositionChoiceIndex >= workPosition.length || workPositionChoiceIndex < 0);
+			*/
 			PracovniPozice chosenPosition = workPosition[workPositionChoiceIndex];
 			Employee employee = new Employee(employeeName, chosenPosition);
 			employees.add(employee);
@@ -104,7 +106,7 @@ public class Administrace {
 
 	public static void addRoom(Scanner scanner) {
 
-		List<Sal> savedRooms = Storage.loadRooms(Konstanty.ROOMS_STORAGE_PATH);
+		List<Sal> savedRooms = Storage.loadRooms();
 
 		List<Sal> projectionRooms = new ArrayList<>();
 		projectionRooms.addAll(savedRooms);
@@ -161,7 +163,7 @@ public class Administrace {
 
 	public static List<Jidlo> addMeal(Scanner scanner, boolean askForPrice) {
 
-		List<Jidlo> savedMeals = Storage.loadMeals(Konstanty.MEALS_STORAGE_PATH);
+		List<Jidlo> savedMeals = Storage.loadMeals();
 
 		List<Jidlo> meals = new ArrayList<>();
 		meals.addAll(savedMeals);
@@ -203,7 +205,7 @@ public class Administrace {
 
 	public static void addMealMenu(Scanner scanner) {
 
-		List<Jidlo> savedMeals = Storage.loadMeals(Konstanty.MEALS_STORAGE_PATH);
+		List<Jidlo> savedMeals = Storage.loadMeals();
 		List<MenuJidlo> menus = new ArrayList<>();
 
 		boolean enterNewMenu = false;
@@ -242,10 +244,9 @@ public class Administrace {
 	}
 
 	public static void addProjection(Scanner scanner) {
-		List<Promitani> savedProjections = Storage.loadProjections(Konstanty.PROJECTIONS_STORAGE_PATH,
-				Konstanty.MOVIES_STORAGE_PATH, Konstanty.ROOMS_STORAGE_PATH);
-		List<Film> savedFilms = Storage.loadFilms(Konstanty.MOVIES_STORAGE_PATH);
-		List<Sal> savedRooms = Storage.loadRooms(Konstanty.ROOMS_STORAGE_PATH);
+		List<Promitani> savedProjections = Storage.loadProjections();
+		List<Film> savedFilms = Storage.loadFilms();
+		List<Sal> savedRooms = Storage.loadRooms();
 		List<Promitani> projections = new ArrayList<>();
 		projections.addAll(savedProjections);
 
