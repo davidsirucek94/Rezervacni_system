@@ -18,11 +18,11 @@ import Kino.RezervacniSystem.Sal;
 
 public class Administrace {
 
-	public static void main() {
+	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
 
-		addEmployee(scanner);
+		addProjection(scanner);
 
 	}
 

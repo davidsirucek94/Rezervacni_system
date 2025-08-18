@@ -15,7 +15,7 @@ public class Kino {
 		int choice = UserInputMethods.getIntegerByChoice(scanner, "Do you want to access Administration (type 1), Reservation system (type 2) or Buffet (type 3).", 3);
 		switch (choice) {
 		case 1:
-			Administrace.main();
+			Administrace.main(args);
 			break;
 		case 2:
 			RezervacniSystem.main(args);

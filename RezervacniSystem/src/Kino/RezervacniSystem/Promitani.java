@@ -117,6 +117,17 @@ public class Promitani implements IStorable {
 		return new Promitani(promitaniId, film, sal, dateTime, seats);
 	}
 	
+	@Override
+	public String toString() {
+		String sedadlaFormat = "";
+		for (Map.Entry<Sedadlo, Boolean> entry : seats.entrySet()) {
+			Sedadlo seat = entry.getKey();
+			Boolean obsazeno = entry.getValue();
+			sedadlaFormat = sedadlaFormat + String.format("%dy%dy%bx", seat.row, seat.seatNumber, obsazeno);
+		}
+		return film.getName() + ";" + sal.numberOfRoom + ";" + dateTime;
+	}
+	
 	@Override 
 	public String toCsv() {
 		String sedadlaFormat = "";

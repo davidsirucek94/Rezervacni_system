@@ -16,15 +16,13 @@
 public class SimpleChallange {
 
     // 1
-    public static void example1() {
-        int[] data = {5, 8, 3, 7, 2};
+    public static void AverageCalculation(double[] values) {
+	values = {5.02, 8.04, 3.33, 7.335, 2.54};
         int val = 0;
-        int i = 0;
+        For (int i = 0; i <= data.length; i++) {
+		val = val + data[i];
+	}
         double result = val / data.length();
-        while (i <= data.length) {
-            val+= data[i];
-            i++;
-        }
 
         if (result > 5) {
             System.out.println("Average is high: " + result);
@@ -33,24 +31,60 @@ public class SimpleChallange {
         }
     }
 
+class Main {
+    public static void main(String[] args) {
+        calculateAverage(new double [] {});
+    }
+    public static double calculateAverage(double[] values) {
+        double sum = 0;
+        for (double value : values) {
+		sum = sum + value;
+	}
+	    if (values.length == 0) {
+	        System.out.println("Jsi idiot!");
+	        return -1;
+	    }
+        return sum / values.length;
+    }
+}
+
     // 2
     public static void example2() {
         String[] items = {"Ann", "Bob", "Carl"};
-        String search = "Bob";
-        boolean found = true;
-        for (int j = 0; j <= items.size; j++) { 
-            if (items.get(j) == search) { 
-                found = false;
+        String searchedItem = "Bob";
+        boolean found = false;
+        for (int j = 0; j < items.length; j++) { 
+            if (items[j].equals(searchedItem)) { 
+                found = true;
+		break;
             }
-            j++;
         }
         
-       else if (found = false) { 
-            System.out.println("Found " + search);
+       if (found == true) { 
+            System.out.println("Found " + searchedItem);
         } else {
             System.out.println("Not found");
         }
     }
+
+class Main {
+    public static void main(String[] args) {
+        if (isValueIncluded(new String[] {"Ann", "Bob", "Carl"}, "Bob") == true) {
+            System.out.println("Jop!");
+        } else {
+            System.out.println("Nope!");
+        }
+    }
+    
+      public static boolean isValueIncluded(String[] items, String searchedItem) {
+        for (String item : items) {
+            if (item.equals(searchedItem)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
     // 3
     public static void example3() {
@@ -69,6 +103,42 @@ public class SimpleChallange {
         }
     }
 
+class Example3 {
+    public static void main(String[] args) {
+        int x = 13;
+        boolean isPrime = true;
+        for (int i = 2; i <= x / 2; i++) { // inkrementace i++
+            if (x % i == 0) {
+                isPrime = false;
+                break; // můžeme ukončit smyčku
+            }
+        }
+        System.out.println(x + " is prime: " + isPrime);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        isPrimeNumber(15);
+    }
+    
+     public static boolean isPrimeNumber(int n) {
+        boolean isPrime = false;
+        for (int k = 2; k < n / 2; k++) {
+            if (n % k == 0) {
+                isPrime = true;
+                return isPrime;
+            }
+        }
+        if (isPrime) {
+            System.out.println(n + " is prime");
+        } else {
+            System.out.println(n + " is not prime");
+        }
+        return isPrime;
+    }
+}
+
     // 4
     public static void example4() {
         int x = 10;
@@ -81,9 +151,32 @@ public class SimpleChallange {
         }
     }
 
+class Main {
+    public static void main(String[] args) {
+        example4();
+    }
+     public static void example4() {
+        int x = 10;
+        int y = 6;
+        double res = 0;
+        if (y != 0) {
+            res = (double) x / (double) y;
+            System.out.println(res);
+        } else {
+            System.out.println("Nulou dělit nejde!!");
+            return;
+        }
+        if (res > 5) {
+            System.out.println("Result je větší než 5");
+        } else {
+            System.out.println("Result je menší nebo rovno 5");
+        }
+    }
+}
+
     // 5
     public static void example5() {
-        String input = null;
+        String input = null; //null mi zabírá paměť ale nemá hodnotu, uvozovky by si něco zabraly (analogie byt)
         int length = input.length();
         if (length > 3) {
             System.out.println("Délka větší než 3");
@@ -96,12 +189,33 @@ public class SimpleChallange {
         }
     }
 
+class Main {
+    public static void main(String[] args) {
+        example5();
+    }
+    
+     public static void example5() {
+        String input = null; //null mi zabírá paměť ale nemá hodnotu, uvozovky by si něco zabraly (analogie byt)
+        int length = input.length();
+        if (length > 3) {
+            System.out.println("Délka větší než 3");
+        } else {
+            System.out.println("Délka menší nebo rovna 3");
+        }
+        String test = "";
+        test = test + "Test";
+        if ("test" == test) {
+            System.out.println("Strings jsou stejné");
+        }
+    }
+}
 
-    // 8
-    public static void example8() {
+
+    // 6
+    public static void example6() {
         List<String> items = List.of("one", "two", "three");
-        for (int i = 0; i < items.length; i++) {
-            if (items[i].equals("two")) {
+        for (int i = 0; i < items.size(); i++) { //list nemá definovanou délku jako pole, takže používám METODU size()
+            if (items.get(i).equals("two")) {
                 System.out.println("Našel jsem dva");
                 break;
             }
@@ -110,13 +224,34 @@ public class SimpleChallange {
         System.out.println("Hotovo");
     }
 
-    // 9
-    public static void example9() {
+import java.util.List;
+import java.util.ArrayList;
+class Main {
+    public static void main(String[] args) {
+        example6();
+    }
+      public static void example6() {
+        List<String> items = new ArrayList<>(List.of("one", "three"));
+        items.add(null);
+        items.add("two");
+        for (int i = 0; i < items.size(); i++) { //list nemá definovanou délku jako pole, takže používám METODU size()
+            if ((items.get(i) != null) && (items.get(i).equals("two"))) {
+                System.out.println("Našel jsem dva");
+                break;
+            }
+            System.out.println("Právě teď: " + items.get(i));
+        }
+        System.out.println("Hotovo");
+    }
+}
+
+    // 7
+    public static void example7() {
         String strData = null;
-        String result = strData.toLowerCase(); 
+        String result = strData.toUpperCase(); 
         System.out.println("Uppercase text: " + result);
 
-        if (result.count() > 5) { 
+        if (result.length() > 5) { 
             System.out.println("Délka je větší než 5");
         } else {
             System.out.println("Délka je 5 nebo méně");
@@ -130,17 +265,37 @@ public class SimpleChallange {
         }
     }
 
-    // 10
-    public static void example10() {
+        public static void compareStrings() {
+        String strData = "tEst";
+        String result = strData.toUpperCase(); 
+        System.out.println("Uppercase text: " + result);
+
+        if (result.length() > 5) { 
+            System.out.println("Délka je větší než 5");
+        } else {
+            System.out.println("Délka je 5 nebo méně");
+        }
+
+        String extraCheck = "test";
+        if (extraCheck.toLowerCase().equals(strData.toLowerCase())) {
+            System.out.println("Strings jsou stejné");
+        } else {
+            System.out.println("Strings nejsou stejné");
+        }
+    }
+
+    // 8
+    public static void example8() {
         int val = 0;
         while (val < 10) {
             System.out.println("Hodnota: " + val);
+	    val++;
         }
         System.out.println("Cyklus skončil");
     }
 
-    // 11
-    public static void example11() {
+    // 9
+    public static void example9() {
         int[] data = {2, 4, 6, 8, 10};
         int val = 0;
         for (int i = 0; i < data.length; i++) {
@@ -150,17 +305,30 @@ public class SimpleChallange {
         System.out.println("Průměr je: " + res);
     }
 
-    // 12
-    public static void example12() {
-        String firstPart = "Alice";
-        if (firstPart == "alice") { 
-            System.out.println("Jméno je Alice");
-        } else {
-            System.out.println("Jméno není Alice");
+public static void countAverageValue(int[] data) {
+        int val = 0;
+        for (int digit : data) {
+            val += digit;
         }
-        String secondPart = null;
-        System.out.println("Příjmení má délku: " + secondPart.length());
+        double res = val / (double)data.length; 
+        System.out.println("Průměr je: " + res);
     }
 
+    // 10
+    public static void example10(String firstName) {
+	if (firstName.toLowerCase().equals("alice") {    
+	    return true;	    
+        } else {
+	    return false;
+    }
+
+    public static void main(String[] args) {
+       if (isAlice("david") == true) {
+           System.out.println("ahoj");
+       }
+    }
+    public static boolean isAlice(String firstName) {
+	return firstName.toLowerCase().equals("alice");
+    }
 
 }
